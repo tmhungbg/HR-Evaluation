@@ -1,0 +1,34 @@
+<section>
+<h1>New Staff</h1>
+
+<form action="/admin/staffs" method="post">
+  <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+  <div>
+    <label for="name">Name</label>
+    <input type="text" name="staff[name]">
+  </div>
+  <div>
+    <label for="job">Job</label>
+    <select name="staff[job]">
+      <option></option>
+      <option value="admin">Admin</option>
+      <option value="designer">Designer</option>
+      <option value="developer">Developer</option>
+      <option value="manager">Manager</option>
+      <option value="sales_marketing">Seles/Marketing</option>
+      <option value="tester">Tester</option>
+    </select>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" name="staff[email]">
+  </div>
+  <div>
+    <label for="display_password">Display Password</label>
+    <input type="password" name="staff[display_password]">
+  </div>
+  <input type="submit" name="commit" value="create staff">
+</form>
+
+<a href="/admin/staffs">Back</a>
+</section>

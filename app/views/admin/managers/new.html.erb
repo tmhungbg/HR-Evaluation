@@ -1,0 +1,18 @@
+<section>
+<h1>New Manager</h1>
+
+<form action="/managers" method="post">
+  <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" name="managers[email]">
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" name="managers[password]">
+  </div>
+  <input type="submit" name="commit" value="Create stadium">
+</form>
+
+<a href="/admins">Back</a>
+</section>

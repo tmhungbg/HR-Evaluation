@@ -1,0 +1,14 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to "HR Evaluation", admin_root_path, class: 'navbar-brand' %>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><%= active_link_to "Staff Management", admin_staffs_path %></li>
+      <li><%= active_link_to "Manager Management", admin_managers_path %></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
