@@ -1,3 +1,10 @@
+<%= form_tag(admin_managers_path, :method => "get", id: "search_form") do  %>
+  <div>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search" %>
+  </div>
+<% end %>
+
 <div class="action-link pull-right">
   <%= link_to "Create Manager" , new_admin_manager_path, class: 'btn btn-primary' %>
   <%= link_to "Generate Password All" , generate_password_all_admin_managers_path, 
@@ -40,7 +47,7 @@
              class: "btn btn-success" %>
       </td>
       <td>
-        <%= link_to "Deactive", admin_manager_path(manager.id), 
+        <%= link_to "Delete", admin_manager_path(manager.id), 
             method: :delete, class: "btn btn-danger",
             data: {confirm: "Bạn có thật sự muốn vô hiệu hóa tài khỏa này"} %>
       </td>

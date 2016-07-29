@@ -5,6 +5,11 @@ class Admin::ManagersController < AdminController
 
   def index
     @managers = Manager.where(active: true).order(email: :asc)
+    if params[:search].present?
+      @managers = @managers.search_name(params[:search])
+    else
+      @managers = Manager.where(active: true).order(email: :asc)
+    end
   end
 
   def create

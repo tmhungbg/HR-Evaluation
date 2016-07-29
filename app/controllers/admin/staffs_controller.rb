@@ -6,6 +6,11 @@ class Admin::StaffsController < AdminController
 
   def index
     @staffs = Staff.where(active: true).order(email: :asc)
+    if params[:search].present?
+      @staffs = @staffs.search_name(params[:search])
+    else
+      @staffs = Staff.where(active: true).order(email: :asc)
+    end
   end
 
   def create

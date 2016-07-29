@@ -12,6 +12,10 @@ class Manager < ActiveRecord::Base
   validates :display_password, length: {maximum: 10}
   after_create :generate_password!
 
+  scope :search_name, -> (name) {
+    where("name LIKE ?", "%#{name}" )
+  }
+
   def generate_password!
     generated_password = Devise.friendly_token.first(8)
     self.password = generated_password

@@ -24,4 +24,15 @@ class Staff < ActiveRecord::Base
       staff.generate_password!
     end
   end
+
+  scope :search_name, -> (name) {
+    where("name LIKE ?", "%#{name}")
+  }
+  # def self.search(search)
+  #   if search
+  #     find(:all, :conditions => ['name LIKE ?', "#{search}"])
+  #   else
+  #     find(:all)
+  #   end
+  # end
 end
