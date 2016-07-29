@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_admin!
   def after_sign_in_path_for(resource)
-    request.env['omniauth.origin'] || stored_location_for(resource) || admins_path
+    request.env['omniauth.origin'] || stored_location_for(resource) || admin_root_path
   end
 
   def after_sign_out_path_for(resource)

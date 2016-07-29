@@ -1,1 +1,50 @@
-sdfs
+<div class="action-link pull-right">
+  <%= link_to "Create Manager" , new_admin_manager_path, class: 'btn btn-primary' %>
+  <%= link_to "Generate Password All" , generate_password_all_admin_managers_path, 
+      class: 'btn btn-success', 'data-no-turbolink' => false %>
+</div>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Name</th>
+      <th>Job</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th colspan="3" class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @managers.each.with_index(1) do |manager, index| %>
+    <tr>
+      <td>
+      <%= index %>
+      </td>
+      <td>
+        <%= manager.name %>
+      </td>
+      <td>
+        <%= manager.job %>
+      </td>
+      <td>
+      <%= manager.email %>
+      </td>
+      <td>
+      <%= manager.display_password %>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_admin_manager_path(manager.id), class: "btn btn-success" %>
+      </td>
+      <td>
+        <%= link_to "Change Password", generate_password_admin_manager_path(manager.id),
+             class: "btn btn-success" %>
+      </td>
+      <td>
+        <%= link_to "Deactive", admin_manager_path(manager.id), 
+            method: :delete, class: "btn btn-danger",
+            data: {confirm: "Bạn có thật sự muốn vô hiệu hóa tài khỏa này"} %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

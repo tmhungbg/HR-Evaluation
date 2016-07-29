@@ -32,7 +32,13 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'devise-bootstrap-views'
 gem 'active_link_to'
 
+# Form
+gem 'simple_form'
+gem 'enum_help'
+
+
 group :development, :test do
+  gem 'pry'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end

@@ -1,6 +1,6 @@
 <section>
   <h1>Edit Staff</h1>
-<form action="/admin/staffs/<%= @staff.id %>" method="post">
+<!-- <form action="/admin/staffs/<%= @staff.id %>" method="post">
   <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
   <input type="hidden" name="_method" value="patch">
   <div>
@@ -25,8 +25,10 @@
   </div>
   <div>
     <label for="display_password">Display Password</label>
-    <input type="text" name="staff[display_password]" value="<%= @staff.display_password %>">
+    <p><%= @staff.display_password %></p>
   </div>
   <input type="submit" name="commit" value="update staff">
-</form>
+</form> -->
+<%= render 'form' %>
+
 </section>
