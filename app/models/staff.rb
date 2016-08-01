@@ -1,16 +1,24 @@
 class Staff < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
-         :lockable, :timeoutable,:session_limitable
-  enum job: [:admin, :designer, :developer, :manager, :sales_maketing, :tester]
+         :lockable, :timeoutable, :session_limitable
+
   VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
-  validates :email, presence: true, uniqueness: { case_sensitive: false },
-                    format: { with: VALID_EMAIL_REGEX }, length: {maximum: 30}
+
+  has_many :evaluation_result4
+
+
+  enum job: [:admin, :designer, :developer, :manager, :sales_maketing, :tester]
+
+  validates :email, presence: true, 
+                    uniqueness: { case_sensitive: false },
+                    format: { with: VALID_EMAIL_REGEX }, 
+                    length: {maximum: 30}
   validates :name, presence: true, length: {maximum: 30}
   validates :job, presence: true
   validates :display_password, length: {maximum: 10}
+
   after_create :generate_password!
+
 
   def generate_password!
     generated_password = Devise.friendly_token.first(8)
@@ -28,11 +36,7 @@ class Staff < ActiveRecord::Base
   scope :search_name, -> (name) {
     where("name LIKE ?", "%#{name}")
   }
-  # def self.search(search)
-  #   if search
-  #     find(:all, :conditions => ['name LIKE ?', "#{search}"])
-  #   else
-  #     find(:all)
-  #   end
-  # end
+
+  scope :active, -> { where active: true }
 end
+

@@ -15,6 +15,10 @@ Rails.application.routes.draw do
       end
       get 'generate_password', on: :member
     end
+    resources :periods do
+    end
+    resources :evaluation_results do 
+    end
   end
 
   # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
