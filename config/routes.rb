@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: { sessions: 'admin/sessions', unlocks: 'admin/unlocks'}
+  devise_for :admins, controllers: { sessions: 'admin/sessions', unlocks: 'admin/unlocks' }
+  devise_for :staffs, controllers: { sessions: 'staff/sessions', unlocks: 'staff/unlocks' }
 
   namespace :admin do
     root to: "pages#home"
@@ -21,5 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :staff do
+    root to: "pages#home"
+  end
   # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
 end

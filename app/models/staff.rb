@@ -1,10 +1,9 @@
 class Staff < ActiveRecord::Base
-  devise :database_authenticatable,
-         :lockable, :timeoutable, :session_limitable
+  devise :database_authenticatable, :lockable, :timeoutable, :session_limitable
 
   VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
 
-  has_many :evaluation_result4
+  has_many :evaluation_results
 
 
   enum job: [:admin, :designer, :developer, :manager, :sales_maketing, :tester]
