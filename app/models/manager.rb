@@ -19,7 +19,7 @@ class Manager < ActiveRecord::Base
   after_create :generate_password!
 
   scope :search_name, -> (name) {
-    where("name LIKE ?", "%#{name}" )
+    where("name LIKE ?", "%#{name}%" )
   }
 
   def generate_password!

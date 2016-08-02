@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   namespace :staff do
     root to: "pages#home"
+    get 'peer_selection'      
   end
   # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
 end

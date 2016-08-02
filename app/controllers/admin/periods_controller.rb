@@ -40,6 +40,6 @@ class Admin::PeriodsController < AdminController
 
   private
     def period_params
-      params.require(:period).permit(:start_time, :end_time, :participant, staff_ids: [])
+      params.require(:period).permit(:start_time, :end_time, :phase, staff_ids: [])
     end
 end

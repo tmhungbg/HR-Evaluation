@@ -15,7 +15,6 @@ class Admin::StaffsController < AdminController
 
   def create
     @staff = Staff.new(staff_params)
-      # binding.pry
     if @staff.save
       redirect_to admin_staffs_path
     else
