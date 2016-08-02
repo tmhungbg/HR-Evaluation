@@ -1,10 +1,3 @@
-<%= form_tag(admin_periods_path, :method => "get", id: "search_form") do  %>
-  <div>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search" %>
-  </div>
-<% end %>
-
 <div class="action-link pull-right">
   <%= link_to "Create Period" , new_admin_period_path, class: 'btn btn-primary' %>
 </div>
@@ -32,7 +25,9 @@
       </td>
       <td><%= period.staffs.pluck(:name).join(', ') %></td>
       <td>
+        <% if Date.today < period.end_time %>
         <%= link_to "Edit", edit_admin_period_path(period.id), class: "btn btn-success" %>
+        <% end %>
       </td>
     </tr>
     <% end %>

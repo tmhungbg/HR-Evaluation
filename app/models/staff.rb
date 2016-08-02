@@ -38,5 +38,10 @@ class Staff < ActiveRecord::Base
   }
 
   scope :active, -> { where active: true }
+
+  def self.for_period(period)
+    staff_ids = self.active.pluck(:id) + period.staff_ids
+    where(id: staff_ids)
+  end
 end
 
