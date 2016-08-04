@@ -68,5 +68,11 @@ class Staff < ActiveRecord::Base
   def valid_staff?
     self.active && self.has_current_period? && self.current_period_in_valid_phase?
   end
+
+  def account_unlock!
+    self.unlock_token = nil
+    self.locked_at = nil
+    self.save!
+  end
 end
 

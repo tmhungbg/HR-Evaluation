@@ -51,6 +51,14 @@ class Admin::StaffsController < AdminController
     redirect_to admin_staffs_path
   end
 
+  def unlock_account
+    @staff = Staff.find(params[:id])
+    unless @staff.locked_at.nil?
+      @staff.account_unlock!
+      redirect_to admin_staffs_path
+    end
+  end
+
   private
     def staff_params
       params.require(:staff).permit(:name, :job, :email)
