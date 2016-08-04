@@ -1,0 +1,7 @@
+<section>
+  <%= simple_form_for [:staff, @peer_selection] do |f| %>
+    <%= f.association :reviewers, as: :check_boxes, collection: Staff.for_peer_selection(current_staff) %>
+    <%= f.input :reason %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  <% end %>
+</section>

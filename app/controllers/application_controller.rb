@@ -28,4 +28,10 @@ class ApplicationController < ActionController::Base
       root_path
     end
   end
+
+  def current_period
+    @_current_period ||= Period.get_current_period
+  end
+
+  helper_method :current_period
 end

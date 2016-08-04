@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802063605) do
+ActiveRecord::Schema.define(version: 20160803082844) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                             default: "", null: false
@@ -45,13 +45,28 @@ ActiveRecord::Schema.define(version: 20160802063605) do
     t.integer  "staff_id"
     t.integer  "manager_id"
     t.integer  "period_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "resources_staff_id"
+    t.integer  "target_staff_id"
+    t.string   "reason"
   end
 
   add_index "evaluation_results", ["manager_id"], name: "index_evaluation_results_on_manager_id"
   add_index "evaluation_results", ["period_id"], name: "index_evaluation_results_on_period_id"
   add_index "evaluation_results", ["staff_id"], name: "index_evaluation_results_on_staff_id"
+
+  create_table "evaluations", force: :cascade do |t|
+    t.integer "peer_selection_id"
+    t.integer "staff_id"
+    t.integer "period_id"
+    t.string  "type"
+    t.decimal "score"
+  end
+
+  add_index "evaluations", ["peer_selection_id"], name: "index_evaluations_on_peer_selection_id"
+  add_index "evaluations", ["period_id"], name: "index_evaluations_on_period_id"
+  add_index "evaluations", ["staff_id"], name: "index_evaluations_on_staff_id"
 
   create_table "managers", force: :cascade do |t|
     t.string   "email",                  default: "",   null: false
@@ -78,6 +93,17 @@ ActiveRecord::Schema.define(version: 20160802063605) do
   add_index "managers", ["email"], name: "index_managers_on_email", unique: true
   add_index "managers", ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   add_index "managers", ["unlock_token"], name: "index_managers_on_unlock_token", unique: true
+
+  create_table "peer_selections", force: :cascade do |t|
+    t.integer  "period_id"
+    t.integer  "staff_id"
+    t.string   "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "peer_selections", ["period_id"], name: "index_peer_selections_on_period_id"
+  add_index "peer_selections", ["staff_id"], name: "index_peer_selections_on_staff_id"
 
   create_table "periods", force: :cascade do |t|
     t.date     "start_time"

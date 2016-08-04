@@ -5,9 +5,13 @@ class Staff < ActiveRecord::Base
 
   has_many :evaluation_results
   has_many :periods, through: :evaluation_results
+  has_many :peer_selections
+  has_many :peer_evaluations, through: :peer_selections
+  has_many :self_evaluations
+  has_many :manager_evaluations
 
 
-  enum job: [:admin, :designer, :developer, :manager, :sales_maketing, :tester]
+  enum job: [:admin, :designer, :developer, :manager, :sales_marketing, :tester]
 
   validates :email, presence: true, 
                     uniqueness: { case_sensitive: false },
@@ -18,7 +22,7 @@ class Staff < ActiveRecord::Base
   validates :display_password, length: {maximum: 10}
 
   after_create :generate_password!
-
+ 
 
   def generate_password!
     generated_password = Devise.friendly_token.first(8)
@@ -42,6 +46,11 @@ class Staff < ActiveRecord::Base
   def self.for_period(period)
     staff_ids = self.active.pluck(:id) + period.staff_ids
     where(id: staff_ids)
+  end
+
+  def self.for_peer_selection(current_staff)
+    current_period = Period.get_current_period
+    current_period.staffs - [current_staff]
   end
 
   def current_period

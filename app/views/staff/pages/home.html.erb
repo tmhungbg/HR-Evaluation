@@ -1,9 +1,6 @@
-<div class="action-link pull-center">
-  <%= link_to "Peer Selection" , staff_peer_selection_path, class: 'btn btn-success' %>
-  <br>
-  <%= link_to "Self Evaluation" , class: 'btn btn-success' %>
-  <br>
-  <%= link_to "Peer Evaluation", class: 'btn btn-success' %>
-  <br>
-  <%= link_to "Results", class: 'btn btn-success' %>
+<div class="list-group text-center">
+    <%= link_to "Peer Selection" , staff_peer_selections_path, class: 'list-group-item list-group-item-action active' %>
+    <%= link_to "Self Evaluation" , '#', class: 'list-group-item list-group-item-action disabled' %>
+    <%= link_to "Peer Evaluation" , '#', class: 'list-group-item list-group-item-action disabled' %>
+    <%= link_to "Result" , '#', class: 'list-group-item list-group-item-action disabled' %>
 </div>

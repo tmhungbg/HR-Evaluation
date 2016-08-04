@@ -1,5 +1,6 @@
 class Period < ActiveRecord::Base
   has_many :evaluation_results
+  has_many :evaluation 
   has_many :staffs, through: :evaluation_results
 
    enum phase: [:phase_1, :phase_2, :phase_3, :phase_4, :phase_5, :phase_6]
@@ -8,6 +9,7 @@ class Period < ActiveRecord::Base
   validates :end_time, presence: true
   validate :start_time_less_than_end_time
   validate :not_overlap
+
 
   def start_time_less_than_end_time
     return if start_time.blank? || end_time.blank?
@@ -35,5 +37,9 @@ class Period < ActiveRecord::Base
   def current_period?
     return if self.start_time.blank? || self.end_time.blank?
     self.start_time <= Date.current && self.end_time >= Date.current
+  end
+
+  def self.get_current_period
+    Period.all.find{ |p| p.current_period? }
   end
 end

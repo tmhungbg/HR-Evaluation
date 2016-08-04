@@ -1,4 +1,18 @@
 <section>
   <h2>Please choose three people as your peer reviewer</h2>
-  <!-- <form action=""></form> -->
+  <form action="/staff/evaluations" method="post">
+    <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+    <input type="hidden" name="_method" value="patch">
+    <div>
+      <% Staff.for_peer_selection(current_staff).each do |staff| %>
+        <input type="checkbox" name="evaluation[source][]" value="<%= staff.id %>"><%= staff.name %><br>
+      <% end %>
+    </div>
+    <div>
+      Reason: <input type="text" name="evaluation[reason]">
+    </div>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
 </section>

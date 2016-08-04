@@ -5,6 +5,7 @@ class Manager < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
 
   has_many :evaluation_result
+  has_many :evaluation 
 
   enum job: [:admin, :disigner, :developer, :manager, :sales_marketing, :tester]
 
