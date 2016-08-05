@@ -31,6 +31,7 @@ gem 'devise_security_extension'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'devise-bootstrap-views'
 gem 'active_link_to'
+gem 'slim-rails'
 
 # Form
 gem 'simple_form'

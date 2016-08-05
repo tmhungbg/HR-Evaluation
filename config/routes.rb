@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: { sessions: 'admin/sessions', unlocks: 'admin/unlocks' }
-  devise_for :staffs, controllers: { sessions: 'staff/sessions', unlocks: 'staff/unlocks' }
+  devise_for :admins
+  devise_for :staffs
+  devise_for :managers
 
   namespace :admin do
     root to: "pages#home"
@@ -25,8 +26,13 @@ Rails.application.routes.draw do
   namespace :staff do
     root to: "pages#home"
     resources :peer_selections, only: [:index, :update]
+    resources :self_evaluations, only: [:index, :update]
     resources :evaluations do 
     end
+  end
+
+  namespace :manager do 
+    root to: "pages#home"
   end
   # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
 end

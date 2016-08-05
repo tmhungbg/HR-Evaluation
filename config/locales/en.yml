@@ -20,4 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  enums:
+    period:
+      phase:
+        phase_1: "Phase 1: Preparation"
+        phase_2: "Phase 2: Peer Selection"
+        phase_3: "Phase 3: Self Evaluation and Peer Evaluation"
+        phase_4: "Phase 4: Evaluaton by Manager"
+        phase_5: "Phase 5: Reporting"
+        phase_6: "Phase 6: Closed"
+

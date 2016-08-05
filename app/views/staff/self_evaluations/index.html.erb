@@ -1,0 +1,7 @@
+<section>
+  <%= simple_form_for [:staff, @self_evaluation] do |f| %>
+   
+    <%= f.input :reason %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  <% end %>
+</section>
