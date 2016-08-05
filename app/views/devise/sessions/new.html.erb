@@ -1,0 +1,21 @@
+<h1 class="page-header text-center">MMJ HR Evaluation</h1>
+<h2 class="text-center"><%= resource_name.capitalize %> Login</h2>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render 'shared/common/alert' %>
+  </div>
+  <div class="col-md-6 col-md-offset-3 well">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :email, label: "Account", required: false, autofocus: true %>
+        <%= f.input :password, required: false %>
+        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      </div>
+
+      <div class="form-actions text-center">
+        <%= f.button :submit, "Login", class: "btn btn-primary btn-lg" %>
+      </div>
+    <% end %>
+  </div>
+</div>

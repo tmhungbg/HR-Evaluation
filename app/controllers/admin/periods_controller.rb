@@ -9,7 +9,7 @@ class Admin::PeriodsController < AdminController
   end
 
   def index
-    @periods = Period.all.order(end_time: :DESC)
+    @periods = Period.preload(:staffs).all.order(end_time: :DESC)
   end
 
   def create

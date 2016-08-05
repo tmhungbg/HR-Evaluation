@@ -39,6 +39,14 @@ class Period < ActiveRecord::Base
     self.start_time <= Date.current && self.end_time >= Date.current
   end
 
+  def can_edit?
+    end_time && Date.current <= end_time    
+  end
+
+  def staff_names
+    staffs.map(&:name).join(', ')
+  end
+
   def self.get_current_period
     Period.all.find{ |p| p.current_period? }
   end

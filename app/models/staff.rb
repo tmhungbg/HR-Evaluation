@@ -28,6 +28,8 @@ class Staff < ActiveRecord::Base
     generated_password = Devise.friendly_token.first(8)
     self.password = generated_password
     self.display_password = generated_password
+    self.unlock_token = nil
+    self.locked_at = nil
     self.save!
   end
 
@@ -69,10 +71,5 @@ class Staff < ActiveRecord::Base
     self.active && self.has_current_period? && self.current_period_in_valid_phase?
   end
 
-  def account_unlock!
-    self.unlock_token = nil
-    self.locked_at = nil
-    self.save!
-  end
 end
 

@@ -1,0 +1,32 @@
+div.action-link.pull-right
+  = link_to "Create Period" , new_admin_period_path, class: 'btn btn-primary'
+table.table.table-striped.table-hover
+  colgroup
+    col style="width: 5%"
+    col style="width: 15%"
+    col style="width: 15%"
+    col style="width: 30%"
+    col style="width: 10%"
+    col style="width: 25%"
+  thead
+    tr
+      th No
+      th Start
+      th End
+      th Phase
+      th Staffs
+      th Status
+      th colspan="2" 
+        .text-center Action
+  tbody
+    - @periods.each.with_index(1) do |period, index|
+      tr
+        td = index
+        td = period.start_time
+        td = period.end_time
+        td = period.phase_i18n
+        td 
+          span title="#{period.staff_names}"
+            = "#{period.staffs.size} members"
+        td = render_period_status(period)
+        td = render_edit_period_link(period)

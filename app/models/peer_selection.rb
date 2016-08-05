@@ -1,7 +1,6 @@
 class PeerSelection < ActiveRecord::Base
   belongs_to :period
   belongs_to :staff
-  
   has_many :peer_evaluations
   has_many :reviewers, through: :peer_evaluations
 
