@@ -11,7 +11,7 @@ class Staff::SelfEvaluationsController < StaffController
       render :index
     end
   end
-
+ 
   private
   
   def self_evaluation_params

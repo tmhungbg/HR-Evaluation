@@ -8,4 +8,7 @@ Staff:
   - Only login-logout with account when Period active to phase 1 from phase 5 
   - if login 3 time error then lock account. only admin can unlock account
 
-  doi pass 
+  them mo ta cho phase
+  tao status cho period: active, unactive ok
+  changepassword + unlock for manager ok
+  add bootstrap for login ok

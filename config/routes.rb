@@ -21,6 +21,13 @@ Rails.application.routes.draw do
     end
     resources :evaluation_results do 
     end
+    resources :questions do
+      member do
+        get :move_up
+        get :move_down
+      end
+    end
+    resources :answers
   end
 
   namespace :staff do

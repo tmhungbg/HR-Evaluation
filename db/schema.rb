@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805055220) do
+ActiveRecord::Schema.define(version: 20160809065635) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                             default: "", null: false
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20160805055220) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   add_index "admins", ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
+
+  create_table "answers", force: :cascade do |t|
+    t.string   "answer"
+    t.integer  "order"
+    t.integer  "point"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "question_id"
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
 
   create_table "evaluation_results", force: :cascade do |t|
     t.integer  "staff_id"
@@ -114,6 +125,23 @@ ActiveRecord::Schema.define(version: 20160805055220) do
     t.datetime "updated_at",  null: false
     t.integer  "phase"
   end
+
+  create_table "question_groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "question"
+    t.integer  "display_order"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "active",            default: true
+    t.integer  "question_group_id"
+  end
+
+  add_index "questions", ["question_group_id"], name: "index_questions_on_question_group_id"
 
   create_table "staffs", force: :cascade do |t|
     t.string   "email",                             default: "",   null: false
