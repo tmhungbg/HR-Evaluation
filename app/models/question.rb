@@ -11,12 +11,12 @@ class Question < ActiveRecord::Base
 
   def add_order
     self.display_order = Question.count + 1
-    end
+  end
 
-    def generate_answer
-      self.answers.create!(
-        [
-          {answer:"Great",            order: 5, point: 5},
+  def generate_answer
+    self.answers.create!(
+      [
+        {answer:"Great",            order: 5, point: 5},
         {answer:"Very Good",        order: 4, point: 4},
         {answer:"Acceptable",       order: 3, point: 3},
         {answer:"Need Improvement", order: 2, point: 2},

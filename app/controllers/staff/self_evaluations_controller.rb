@@ -5,7 +5,16 @@ class Staff::SelfEvaluationsController < StaffController
 
   def update
     @self_evaluation = SelfEvaluation.find_by(staff: current_staff, period: current_period)
-    if @self_evaluation.update(self_evaluation_params)
+    @self_evaluation.attributes = self_evaluation_params
+    # Assign status
+    if params[:context] == 'Save'
+      @self_evaluation.status = :evaluated
+      context = :evaluated
+    else
+      @self_evaluation.status = :temporary_save
+      context = :temporary_save
+    end
+    if @self_evaluation.save(context: context)
       redirect_to staff_root_path
     else
       render :index
@@ -15,6 +24,7 @@ class Staff::SelfEvaluationsController < StaffController
   private
   
   def self_evaluation_params
-    params.require(:self_evaluation).permit(:score)
+    params.require(:self_evaluation)
+          .permit(rel_evaluation_answers_attributes: [:id, :point, :comment,:updated_at])
   end
 end

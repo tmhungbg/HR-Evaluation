@@ -6,6 +6,7 @@ class CreateEvaluations < ActiveRecord::Migration
       t.references :period, index: true, foreign_key: true
       t.string :type
       t.decimal :score
+      t.timestamps null: false
     end
   end
 end
