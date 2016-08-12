@@ -1,6 +1,6 @@
 class Staff::SelfEvaluationsController < StaffController
   def index
-    @self_evaluation = SelfEvaluation.find_or_create_by(staff: current_staff, period: current_period)
+    @self_evaluation = SelfEvaluation.by_staff_and_period(current_staff, current_period)
   end
 
   def update

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     root to: "pages#home"
     resources :peer_selections, only: [:index, :update]
     resources :self_evaluations, only: [:index, :update]
+    resources :peer_evaluations, only: [:index, :update]
     resources :evaluations do 
     end
   end

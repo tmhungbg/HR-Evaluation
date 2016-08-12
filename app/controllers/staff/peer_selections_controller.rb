@@ -18,14 +18,3 @@ class Staff::PeerSelectionsController < StaffController
     params.require(:peer_selection).permit(:reason, reviewer_ids: [])
   end
 end
-
-
-# current_reviewer_ids = peer_selection.reviewer_ids
-
-# new_review_ids = params[:peer_selection][:reviewer_ids]
-
-# Add = new_review_ids - current_reviewer_ids
-# Destroy = current_reviewer_ids - new_review_ids
-
-# Add.each => create PeerEvaluation
-# Destroy.each => destroy PeerEvaluation
