@@ -1,0 +1,5 @@
+<%= simple_form_for [:admin, @answer] do |f| %>
+  <%= f.input :answer %>
+  <%= f.input :order %>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>

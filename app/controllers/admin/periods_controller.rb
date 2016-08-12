@@ -29,6 +29,7 @@ class Admin::PeriodsController < AdminController
 
   def update
     @period = Period.find(params[:id])
+    # binding.pry
     flash[:notice] = "This period is outdate."
     redirect_to admin_periods_path if @period.outdate?
     if @period.update(period_params)

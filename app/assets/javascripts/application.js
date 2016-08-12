@@ -11,6 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require_tree .
+
+jQuery(document).on('turbolinks:load', function() {
+  $(".alert").delay(2000).slideUp(100, function() {});
+});
+Turbolinks.enableTransitionCache()
+Turbolinks.enableProgressBar()
