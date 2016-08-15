@@ -5,11 +5,10 @@ class Staff::PeerEvaluationsController < StaffController
 
   def edit
     @peer_evaluation = PeerEvaluation.find_and_initialize(current_staff, current_period,params[:id])
-    @peer_evaluation.rel_evaluation_answers
   end
 
   def update
-    @peer_evaluation = PeerEvaluation.find_and_initialize(current_staff, current_period,params[:id])
+    @peer_evaluation = PeerEvaluation.find_by(staff: current_staff, period: current_period)
     @peer_evaluation.attributes = peer_evaluation_params
     # Assign status
     if params[:context] == 'Save'
@@ -20,9 +19,9 @@ class Staff::PeerEvaluationsController < StaffController
       context = :temporary_save
     end
     if @peer_evaluation.save(context: context)
-      redirect_to staff_peer_evaluations_path
+      redirect_to staff_root_path
     else
-      render :edit
+      render :index
     end
   end
 

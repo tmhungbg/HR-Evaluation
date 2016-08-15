@@ -8,6 +8,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr></tr>
+    <% @manager_evaluations.each do |m| %>
+      <tr>
+        <td><%= m.staff.name%></td>
+        <td><%= m.status %></td>
+        <td><%=link_to 'Evaluation', edit_manager_manager_evaluation_path(m) %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   namespace :manager do 
     root to: "pages#home"
+    resources :manager_evaluations, only: [:edit, :update]
   end
   # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
 end
