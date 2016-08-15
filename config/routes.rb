@@ -34,13 +34,14 @@ Rails.application.routes.draw do
     root to: "pages#home"
     resources :peer_selections, only: [:index, :update]
     resources :self_evaluations, only: [:index, :update]
-    resources :peer_evaluations, only: [:index, :update]
+    resources :peer_evaluations, only: [:index, :update, :edit]
     resources :evaluations do 
     end
   end
 
   namespace :manager do 
     root to: "pages#home"
+    resources :manager_evaluations, only: [:edit, :update]
   end
   # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
 end

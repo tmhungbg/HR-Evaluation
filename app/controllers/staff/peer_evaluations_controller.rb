@@ -1,6 +1,10 @@
 class Staff::PeerEvaluationsController < StaffController
   def index
-    @peer_evaluation = PeerEvaluation.find_or_create_by(staff: current_staff, period: current_period)
+    @peer_evaluations = PeerEvaluation.get_by_staff_and_period(current_staff, current_period)
+  end
+
+  def edit
+    @peer_evaluation = PeerEvaluation.find_and_initialize(current_staff, current_period,params[:id])
   end
 
   def update
@@ -20,11 +24,11 @@ class Staff::PeerEvaluationsController < StaffController
       render :index
     end
   end
- 
+
   private
-  
+
   def peer_evaluation_params
     params.require(:peer_evaluation)
-          .permit(rel_evaluation_answers_attributes: [:id, :point, :comment,:updated_at])
+          .permit(rel_evaluation_answers_attributes: [:id, :point, :comment, :updated_at])
   end
 end

@@ -1,0 +1,18 @@
+- group_name  = ''
+section
+  h1
+  = simple_form_for [:manager, @manager_evaluation] do |f|
+    = f.simple_fields_for :rel_evaluation_answers do |a|
+        - question_group  = a.object.question.question_group
+        - if question_group.name  != group_name
+          - group_name = question_group.name
+          h2.page-header.text-success data-toggle="collapse" data-target="#group_#{question_group.id}"
+            = a.object.question.question_group.name
+        .well
+          h4 = a.object.question.question
+          = a.input :point, as: :radio_buttons, wrapper: :vertical_radio_and_checkboxes, label: 'Answer'
+          = a.input :comment
+          = a.input :updated_at, as: :hidden, input_html:  { value: Time.current }
+    = f.button :submit, "Temporary Saved", class: "btn btn-primary", name: 'context'      
+    = f.button :submit, "Save", class: "btn btn-primary", name: 'context'  
+

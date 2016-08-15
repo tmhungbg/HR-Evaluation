@@ -1,4 +1,19 @@
-<div class="list-group text-center">
-    <%= link_to "Evaluation Staff" , "#", class: 'list-group-item list-group-item-action active' %>
-  
-</div>
+<h2>Manager Evaluation</h2>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Evaluation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @manager_evaluations.each do |m| %>
+      <tr>
+        <td><%= m.staff.name%></td>
+        <td><%= m.status %></td>
+        <td><%=link_to 'Evaluation', edit_manager_manager_evaluation_path(m) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

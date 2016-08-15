@@ -1,7 +1,5 @@
 class Manager::PagesController < ManagerController
   def home
-  end
-
-  def peer_selection
+    @manager_evaluations = ManagerEvaluation.joins(:staff).by_period(current_period).order('staffs.name')
   end
 end
