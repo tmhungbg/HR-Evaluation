@@ -1,5 +1,6 @@
 class Staff::PeerEvaluationsController < StaffController
   def index
+    # binding.pry
     @peer_evaluations = PeerEvaluation.get_by_staff_and_period(current_staff, current_period)
   end
 
@@ -8,7 +9,7 @@ class Staff::PeerEvaluationsController < StaffController
   end
 
   def update
-    @peer_evaluation = PeerEvaluation.find_by(staff: current_staff, period: current_period)
+    @peer_evaluation = PeerEvaluation.where(reviewer: current_staff).find(params[:id])
     @peer_evaluation.attributes = peer_evaluation_params
     # Assign status
     if params[:context] == 'Save'

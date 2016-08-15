@@ -35,8 +35,8 @@ Rails.application.routes.draw do
     resources :peer_selections, only: [:index, :update]
     resources :self_evaluations, only: [:index, :update]
     resources :peer_evaluations, only: [:index, :update, :edit]
-    resources :evaluations do 
-    end
+    resources :evaluations, only: [:edit, :update]
+    resources :evaluation_results, only: [:index]
   end
 
   namespace :manager do 
