@@ -16,7 +16,7 @@ class RelEvaluationAnswer < ActiveRecord::Base
   validates :comment, length: { maximum: 255 }
 
   validates :point, presence: true, on: :evaluated
-  validates :comment, presence: true, 
-            if: -> { p point; point.present? && point != 'acceptable' }, 
-            on: :evaluated
+  # validates :comment, presence: true, 
+  #           if: -> { p point; point.present? && point != 'acceptable' }, 
+  #           on: :evaluated
 end

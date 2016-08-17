@@ -1,4 +1,0 @@
-<%= simple_form_for [:staff, @period] do |f| %>
-  <%= f.association :staffs, as: :check_boxes, collection: Staff.for_period(@period) %>
-  <%= f.button :submit, class: "btn btn-primary" %>
-<% end %> 
