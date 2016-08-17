@@ -71,5 +71,25 @@ class Staff < ActiveRecord::Base
     self.active && self.has_current_period? && self.current_period_in_valid_phase?
   end
 
+  def get_current_reviwer_name
+    current_peer_selection = peer_selections.find_by(period: current_period)
+    return if current_peer_selection.blank?
+    current_peer_selection.reviewers.map(&:name).join(', ')
+  end
+
+  def get_current_self_evaluation_status
+    if self_evaluations.find_by(period: current_period).try(:evaluated?)
+      return 'Done'
+    else
+      return '--'
+    end
+  end
+
+  def get_current_peer_evaluation_status
+    current_peer_selection = peer_selections.find_by(period: current_period)
+    return '0 / 0' if current_peer_selection.blank?
+    current_peer_evaluations = current_peer_selection.peer_evaluations
+    "#{current_peer_evaluations.select(&:evaluated?).length} / #{current_peer_evaluations.length}"
+  end
 end
 

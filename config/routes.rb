@@ -28,6 +28,8 @@ Rails.application.routes.draw do
       end
     end
     resources :answers
+    resources :progress, only: [:index]
+    resources :result, only: [:index]
   end
 
   namespace :staff do
