@@ -51,5 +51,13 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def generate_guideline
+    result = "Guideline for question #{display_order}\n"
+    answers.sort_by(&:display_order).each.with_index(1) do |answer, index|
+      result << "#{index}. #{answer.answer}\n"
+    end
+    result
+  end
+
   scope :active, -> { where active: true}
 end

@@ -1,13 +1,16 @@
-div.action-link.pull-right
+h1.page-header Period Management
+.action-link.pull-right.btn-actions
   = link_to "Create Period" , new_admin_period_path, class: 'btn btn-primary'
+  = link_to "Send Account Information" , send_account_infor_admin_periods_path, class: 'btn btn-danger'
 table.table.table-striped.table-hover
   colgroup
     col style="width: 5%"
     col style="width: 15%"
     col style="width: 15%"
-    col style="width: 30%"
+    col style="width: 20%"
     col style="width: 10%"
-    col style="width: 25%"
+    col style="width: 5%"
+    col style="width: 30%"
   thead
     tr
       th No
@@ -16,8 +19,7 @@ table.table.table-striped.table-hover
       th Phase
       th Staffs
       th Status
-      th colspan="2" 
-        .text-center Action
+      th Action
   tbody
     - @periods.each.with_index(1) do |period, index|
       tr
@@ -28,5 +30,12 @@ table.table.table-striped.table-hover
         td 
           span title="#{period.staff_names}"
             = "#{period.staffs.size} members"
-        td = render_period_status(period)
-        td = render_edit_period_link(period)
+        td 
+          = render_period_status(period)
+        td
+          .btn-actions
+            = render_edit_period_link(period)
+            - if period.current_period?
+              = link_to 'Progress', admin_progress_index_path , class: 'btn btn-primary'
+            - if period.phase_5? || period.phase_6?
+              = link_to 'Result', admin_result_index_path(period_id: period.id) , class: 'btn btn-default'

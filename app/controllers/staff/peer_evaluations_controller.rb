@@ -1,6 +1,5 @@
 class Staff::PeerEvaluationsController < StaffController
   def index
-    # binding.pry
     @peer_evaluations = PeerEvaluation.get_by_staff_and_period(current_staff, current_period)
   end
 
@@ -9,6 +8,11 @@ class Staff::PeerEvaluationsController < StaffController
   end
 
   def update
+    if ! current_period.phase_3?
+      flash[:danger] = 'Can not update self evaluation in this phase'
+      redirect_to staff_root_path
+      return
+    end
     @peer_evaluation = PeerEvaluation.where(reviewer: current_staff).find(params[:id])
     @peer_evaluation.attributes = peer_evaluation_params
     # Assign status
@@ -20,8 +24,10 @@ class Staff::PeerEvaluationsController < StaffController
       context = :temporary_save
     end
     if @peer_evaluation.save(context: context)
+      flash[:success] = 'Updated successfully'
       redirect_to staff_root_path
     else
+      flash[:success] = 'Can not update, please check errors below'
       render :index
     end
   end

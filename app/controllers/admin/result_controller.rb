@@ -1,11 +1,12 @@
-class Staff::EvaluationResultsController < StaffController
+class Admin::ResultController < AdminController
   def index
-    if ! current_period.phase_5?
-      flash[:danger] = 'Can not see result in this phase'
-      redirect_to staff_root_path
-      return
-    end
-    @evaluation_result = EvaluationResult.find_by(staff: current_staff, period: current_period)
+    period = Period.find(params[:period_id])
+    @evaluation_results = EvaluationResult.joins(:staff).preload(:staff).
+                                          where(period: period).order('staffs.name ASC')
+  end
+
+  def show
+    @evaluation_result = EvaluationResult.find(params[:id])
     period = @evaluation_result.period
     staff  = @evaluation_result.staff
 

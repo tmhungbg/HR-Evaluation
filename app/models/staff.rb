@@ -31,6 +31,7 @@ class Staff < ActiveRecord::Base
     self.unlock_token = nil
     self.locked_at = nil
     self.save!
+    EvaluationMailer.send_account_infor(self).deliver_now
   end
 
   def Staff.generate_password_all! #self.generated_password_all!
@@ -56,7 +57,7 @@ class Staff < ActiveRecord::Base
   end
 
   def current_period
-    periods.find { |p| p.current_period? }
+    @_current_period ||= periods.find { |p| p.current_period? }
   end
 
   def has_current_period?
@@ -64,7 +65,7 @@ class Staff < ActiveRecord::Base
   end
 
   def current_period_in_valid_phase?
-    current_period.phase.present? && (!current_period.phase_6?)
+    current_period.phase.present? && (!current_period.phase_6?) && (!current_period.phase_1?)
   end
 
   def valid_staff?
@@ -90,6 +91,14 @@ class Staff < ActiveRecord::Base
     return '0 / 0' if current_peer_selection.blank?
     current_peer_evaluations = current_peer_selection.peer_evaluations
     "#{current_peer_evaluations.select(&:evaluated?).length} / #{current_peer_evaluations.length}"
+  end
+
+  def get_current_manager_evaluation_status
+    if manager_evaluations.find_by(period: current_period).try(:evaluated?)
+      return 'Done'
+    else
+      return '--'
+    end
   end
 end
 

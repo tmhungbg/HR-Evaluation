@@ -1,34 +1,4 @@
+<h1 class="page-header">Edit Staff</h1>
 <section>
-  <h1>Edit Staff</h1>
-<!-- <form action="/admin/staffs/<%= @staff.id %>" method="post">
-  <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
-  <input type="hidden" name="_method" value="patch">
-  <div>
-    <label for="name">Name</label>
-    <input type="text" name="staff[name]" value="<%= @staff.name %>">
-  </div>
-  <div>
-    <label for="job">Job</label>
-    <select name="staff[job">
-      <option></option>
-      <option value="admin" <%= @staff.job == "admin" ? "selected" : "" %>>Admin</option>
-      <option value="designer" <%= @staff.job == "designer" ? "selected" : "" %>>Designer</option>
-      <option value="developer" <%= @staff.job == "developer" ? "selected" : "" %>>Developer</option>
-      <option value="manager" <%= @staff.job == "manager" ? "selected" : "" %>>Manager</option>
-      <option value="sales_marketing <%= @staff.job == "sales_marketing" ? "selected" : "" %>">Sales/Marketing</option>
-      <option value="tester" <%= @staff.job == "tester" ? "selected" : "" %>>Tester</option>
-    </select>
-  </div>
-  <div>
-    <label for="email">Email</label>
-    <input type="email" name="staff[email]" value= "<%= @staff.email %>">
-  </div>
-  <div>
-    <label for="display_password">Display Password</label>
-    <p><%= @staff.display_password %></p>
-  </div>
-  <input type="submit" name="commit" value="update staff">
-</form> -->
 <%= render 'form' %>
-
 </section>

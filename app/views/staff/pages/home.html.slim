@@ -1,0 +1,7 @@
+.list-group.text-center.btn-actions
+  = link_to "Peer Selection" , staff_peer_selections_path, class: 'btn btn-lg btn-primary'
+  - if current_period.phase_3?
+    = link_to "Self Evaluation" , staff_self_evaluations_path, class: 'btn btn-lg btn-primary'
+    = link_to "Peer Evaluation" , staff_peer_evaluations_path, class: 'btn btn-lg btn-primary'
+  - if current_period.phase_4? || current_period.phase_5?
+    = link_to "Result" , staff_evaluation_results_path, class: 'btn btn-lg btn-primary'

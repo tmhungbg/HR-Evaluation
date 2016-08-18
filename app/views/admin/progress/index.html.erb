@@ -1,5 +1,4 @@
-<h2>Progress</h2>
-
+<h1 class="page-header">Period Progress</h1>
 <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -7,6 +6,7 @@
       <th>Peer Selection</th>
       <th>Self Evaluation</th>
       <th>Peer Evaluation</th>
+      <th>Manager Evaluation</th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +16,7 @@
       <td><%= staff.get_current_reviwer_name %></td>
       <td><%= staff.get_current_self_evaluation_status %></td>
       <td><%= staff.get_current_peer_evaluation_status %></td>
+      <td><%= staff.get_current_manager_evaluation_status %></td>
     </tr>
   <% end %>
   </tbody>
