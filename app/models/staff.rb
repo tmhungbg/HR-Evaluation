@@ -57,7 +57,7 @@ class Staff < ActiveRecord::Base
   end
 
   def current_period
-    periods.find { |p| p.current_period? }
+    @_current_period ||= periods.find { |p| p.current_period? }
   end
 
   def has_current_period?
@@ -65,7 +65,7 @@ class Staff < ActiveRecord::Base
   end
 
   def current_period_in_valid_phase?
-    current_period.phase.present? && (!current_period.phase_6?)
+    current_period.phase.present? && (!current_period.phase_6?) && (!current_period.phase_1?)
   end
 
   def valid_staff?
