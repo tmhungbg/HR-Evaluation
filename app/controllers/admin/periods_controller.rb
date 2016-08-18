@@ -15,6 +15,7 @@ class Admin::PeriodsController < AdminController
   def create
     @period = Period.new(period_params)
     if @period.save
+      flash[:success] = "Created successfully"
       redirect_to admin_periods_path
     else
       render 'new'
@@ -30,10 +31,23 @@ class Admin::PeriodsController < AdminController
     @period = Period.find(params[:id])
     redirect_to admin_periods_path if @period.outdate?
     if @period.update(period_params)
+      flash[:success] = "Updated successfully"
       redirect_to admin_periods_path
     else
       render 'edit'
     end
+  end
+
+  def send_account_infor
+    if current_period.blank?
+      flash[:danger] = 'There is not current period'
+      redirect_to :admin_periods_path
+      return
+    end
+
+    Period.send_account_infor
+    flash[:success] = "Sent account information successfully"
+    redirect_to admin_periods_path
   end
 
   private

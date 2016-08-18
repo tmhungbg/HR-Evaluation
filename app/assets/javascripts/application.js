@@ -18,7 +18,13 @@
 //= require_tree .
 
 jQuery(document).on('turbolinks:load', function() {
-  $(".alert").delay(2000).slideUp(100, function() {});
+  $(".alert").delay(2000).slideUp(300);
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+jQuery(document).ready(function($) {
+  $(".alert").delay(2000).slideUp(300);
+  $('[data-toggle="tooltip"]').tooltip();
 });
 Turbolinks.enableTransitionCache()
 Turbolinks.ProgressBar.enable()

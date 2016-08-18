@@ -12,7 +12,7 @@
       <tr>
         <td><%= pe.peer_selection.staff.name %></td>
         <td><%= pe.status %></td>
-        <td><%= link_to 'Review', edit_staff_peer_evaluation_path(pe) %></td>
+        <td><%= link_to 'Review', edit_staff_peer_evaluation_path(pe), class: 'btn btn-primary' %></td>
       </tr>
     <% end %> 
   </tbody>

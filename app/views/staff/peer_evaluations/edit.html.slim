@@ -13,6 +13,7 @@ section
           = a.input :point, as: :radio_buttons, wrapper: :vertical_radio_and_checkboxes, label: 'Answer'
           = a.input :comment
           = a.input :updated_at, as: :hidden, input_html:  { value: Time.current }
-    = f.button :submit, "Temporary Saved", class: "btn btn-primary", name: 'context'      
-    = f.button :submit, "Save", class: "btn btn-success", name: 'context'  
+    .btn-actions
+      = f.button :submit, "Temporary Saved", class: "btn btn-primary", name: 'context'      
+      = f.button :submit, "Save", class: "btn btn-success", name: 'context'  
 

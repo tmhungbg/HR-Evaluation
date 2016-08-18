@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'generate_password', on: :member
     end
     resources :periods do
+      get :send_account_infor, on: :collection
     end
     resources :evaluation_results do 
     end
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
     end
     resources :answers
     resources :progress, only: [:index]
-    resources :result, only: [:index]
+    resources :result, only: [:index, :show]
   end
 
   namespace :staff do

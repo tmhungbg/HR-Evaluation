@@ -25,6 +25,7 @@ gem 'slim-rails'
 
 gem 'simple_form'
 gem 'enum_help'
+gem 'faker'
 
 
 group :development, :test do

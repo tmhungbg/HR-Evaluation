@@ -1,9 +1,19 @@
 class Manager::ManagerEvaluationsController < ManagerController
   def edit
+    if ! current_period.phase_4?
+      flash[:danger] = 'Can not update evaluation in this phase'
+      redirect_to manager_root_path
+      return
+    end
     @manager_evaluation = ManagerEvaluation.by_period(current_period).find(params[:id])
   end
 
   def update
+    if ! current_period.phase_4?
+      flash[:danger] = 'Can not update evaluation in this phase'
+      redirect_to manager_root_path
+      return
+    end
     @manager_evaluation = ManagerEvaluation.by_period(current_period).find(params[:id])
     @manager_evaluation.attributes = manager_evaluation_params
     # Assign status
@@ -15,8 +25,10 @@ class Manager::ManagerEvaluationsController < ManagerController
       context = :temporary_save
     end
     if @manager_evaluation.save(context: context)
+      flash[:success] = 'Updated successfully'
       redirect_to manager_root_path
     else
+      flash[:success] = 'Can not update, please check errors below'
       render :edit
     end
   end

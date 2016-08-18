@@ -4,6 +4,12 @@ class Staff::SelfEvaluationsController < StaffController
   end
 
   def update
+    if ! current_period.phase_3?
+      flash[:danger] = 'Can not update self evaluation in this phase'
+      redirect_to staff_root_path
+      return
+    end
+
     @self_evaluation = SelfEvaluation.find_by(staff: current_staff, period: current_period)
     @self_evaluation.attributes = self_evaluation_params
     # Assign status
@@ -15,8 +21,10 @@ class Staff::SelfEvaluationsController < StaffController
       context = :temporary_save
     end
     if @self_evaluation.save(context: context)
+      flash[:success] = 'Updated successfully'
       redirect_to staff_root_path
     else
+      flash[:success] = 'Can not update, please check errors below'
       render :index
     end
   end

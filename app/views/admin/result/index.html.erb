@@ -1,0 +1,24 @@
+<h1 class="page-header">Final result</h1>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Job</th>
+      <th>Score</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @evaluation_results.each do |result| %>
+    <tr>
+      <td><%= result.staff.name %></td>
+      <td><%= result.staff.job %></td>
+      <td><%= result.score %></td>
+      <td>
+        <%= link_to 'Detail', admin_result_path(result) , class: 'btn btn-primary' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

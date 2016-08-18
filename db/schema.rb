@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815081629) do
+ActiveRecord::Schema.define(version: 20160818061633) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -42,12 +42,12 @@ ActiveRecord::Schema.define(version: 20160815081629) do
   add_index "admins", ["unlock_token"], name: "index_admins_on_unlock_token", unique: true, using: :btree
 
   create_table "answers", force: :cascade do |t|
-    t.string   "answer",      limit: 255
-    t.integer  "order",       limit: 4
-    t.integer  "point",       limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "question_id", limit: 4
+    t.string   "answer",        limit: 255
+    t.integer  "display_order", limit: 4
+    t.integer  "point",         limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "question_id",   limit: 4
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
@@ -55,8 +55,9 @@ ActiveRecord::Schema.define(version: 20160815081629) do
   create_table "evaluation_results", force: :cascade do |t|
     t.integer  "staff_id",   limit: 4
     t.integer  "period_id",  limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.float    "score",      limit: 24
   end
 
   add_index "evaluation_results", ["period_id"], name: "index_evaluation_results_on_period_id", using: :btree

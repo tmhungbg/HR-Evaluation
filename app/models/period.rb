@@ -3,13 +3,12 @@ class Period < ActiveRecord::Base
   has_many :evaluation 
   has_many :staffs, through: :evaluation_results
 
-   enum phase: [:phase_1, :phase_2, :phase_3, :phase_4, :phase_5, :phase_6]
+  enum phase: [:phase_1, :phase_2, :phase_3, :phase_4, :phase_5, :phase_6]
 
   validates :start_time, presence: true
   validates :end_time, presence: true
   validate :start_time_less_than_end_time
   validate :not_overlap
-
 
   def start_time_less_than_end_time
     return if start_time.blank? || end_time.blank?
@@ -49,5 +48,18 @@ class Period < ActiveRecord::Base
 
   def self.get_current_period
     Period.all.find{ |p| p.current_period? }
+  end
+
+  def self.send_account_infor
+    staffs = get_current_period.staffs
+    managers = Manager.where(active: true)
+
+    staffs.each do |staff|
+      EvaluationMailer.send_account_infor(staff).deliver_now
+    end 
+
+    managers.each do |manager|
+      EvaluationMailer.send_account_infor(manager).deliver_now
+    end 
   end
 end

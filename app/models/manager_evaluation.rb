@@ -2,6 +2,11 @@ class ManagerEvaluation < Evaluation
   belongs_to :staff
   belongs_to :period
 
+  after_save :calculate_score, if: -> { self.evaluated? }
+
+  validates :staff, presence: true
+  validates :period, presence: true
+
   def self.by_period(period)
     intialize_manager_evaluations(period)
     where(period: period)
@@ -24,5 +29,12 @@ class ManagerEvaluation < Evaluation
       evaluation_answers << {question: question, evaluation: self}
     end
     RelEvaluationAnswer.create!(evaluation_answers)
+  end
+
+  def calculate_score
+    return unless self.evaluated? && self.rel_evaluation_answers.present?
+    score = self.rel_evaluation_answers.map{|a| a[:point].to_i }.sum.to_f / self.rel_evaluation_answers.length
+    self.update_column(:score, score.round(1))
+    EvaluationResult.find_by(staff: staff, period: period).update_score!
   end
 end
