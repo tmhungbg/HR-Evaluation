@@ -17,7 +17,9 @@ class EvaluationResult < ActiveRecord::Base
     self_score = self_evaluation.score
     peer_score = peer_evaluations.map(&:score).sum.to_f / peer_evaluations.length
     manager_score = manager_evaluation.score
-    final_scoe = (0.3 * self_score + 0.2 * peer_score + 0.5 * manager_score).round(1)
+    final_scoe = (EVALUATION_WEIGHT[:self] * self_score + 
+                  EVALUATION_WEIGHT[:peer] * peer_score + 
+                  EVALUATION_WEIGHT[:manager] * manager_score).round(1)
     self.update!(score: final_scoe.round(1))
   end
 end
