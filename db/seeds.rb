@@ -9,7 +9,7 @@ admins = [
   {email:"nam@mmj.vn", password:"123456"}
 ]
 staffs = [
-  {name: "tran minh hung",    email:"hung@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago) }, 
+  {name: "tran minh hung",    email:"hung@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago) },
   {name: "nguyen tat nam",    email:"nam@mmj.vn",   job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
   {name: "nguyen xuan thanh", email:"thanh@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
   {name: "nguyen tien manh",  email:"manh@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
@@ -38,8 +38,8 @@ Admin.create!(admins)
 Staff.create!(staffs)
 Manager.create!(managers)
 periods = [
-  {start_time: "2016-08-03", end_time: "2016-10-10", phase: "phase_5", staff_ids: Staff.limit(2).pluck(:id)},
-  {start_time: "2015-08-03", end_time: "2015-08-10", phase: "phase_6", staff_ids: Staff.all.pluck(:id)}
+  {start_time: "2015-08-03", end_time: "2015-08-10", phase: "phase_6", staff_ids: Staff.all.pluck(:id)},
+  {start_time: "2016-08-03", end_time: "2016-10-10"},
 ]
 Period.create!(periods)
 
@@ -74,16 +74,17 @@ period = Period.phase_6.first
 staffs = period.staffs
 staff_ids = staffs.pluck(:id)
 staffs.each do |staff|
-  peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
+  peer_selection = PeerSelection.find_by(staff: staff, period: period)
+  peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
   peer_evaluations = peer_selection.reload.peer_evaluations
-  self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
-  manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
+  self_evaluation = SelfEvaluation.find_by(staff: staff, period: period)
+  manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
 
   peer_evaluations.map(&:initialize_evaluation_answers)
   self_evaluation.initialize_evaluation_answers
   manager_evaluation.initialize_evaluation_answers
 
-  # Update point  
+  # Update point
   self_evaluation.rel_evaluation_answers.each do |answer|
     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
   end
@@ -104,35 +105,35 @@ end
 EvaluationResult.update_scores(period)
 
 
-period = Period.phase_5.first
-staffs = period.staffs
-staff_ids = staffs.pluck(:id)
-staffs.each do |staff|
-  peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
-  peer_evaluations = peer_selection.reload.peer_evaluations
-  self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
-  manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
+# period = Period.phase_5.first
+# staffs = period.staffs
+# staff_ids = staffs.pluck(:id)
+# staffs.each do |staff|
+#   peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
+#   peer_evaluations = peer_selection.reload.peer_evaluations
+#   self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
+#   manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
 
-  peer_evaluations.map(&:initialize_evaluation_answers)
-  self_evaluation.initialize_evaluation_answers
-  manager_evaluation.initialize_evaluation_answers
+#   peer_evaluations.map(&:initialize_evaluation_answers)
+#   self_evaluation.initialize_evaluation_answers
+#   manager_evaluation.initialize_evaluation_answers
 
-  # Update point  
-  self_evaluation.rel_evaluation_answers.each do |answer|
-    answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
-  end
-  peer_evaluations.each do |peer_e|
-    peer_e.rel_evaluation_answers.each do |answer|
-      answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
-    end
-  end
-  manager_evaluation.rel_evaluation_answers.each do |answer|
-    answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
-  end
+#   # Update point
+#   self_evaluation.rel_evaluation_answers.each do |answer|
+#     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#   end
+#   peer_evaluations.each do |peer_e|
+#     peer_e.rel_evaluation_answers.each do |answer|
+#       answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#     end
+#   end
+#   manager_evaluation.rel_evaluation_answers.each do |answer|
+#     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#   end
 
-  # Update status
-  self_evaluation.update!(status: :evaluated)
-  peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)}
-  manager_evaluation.update!(status: :evaluated)
-end
-EvaluationResult.update_scores(period)
+#   # Update status
+#   self_evaluation.update!(status: :evaluated)
+#   peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)}
+#   manager_evaluation.update!(status: :evaluated)
+# end
+# EvaluationResult.update_scores(period)

@@ -5,24 +5,26 @@ class Staff < ActiveRecord::Base
   has_many :evaluation_results
   has_many :periods, through: :evaluation_results
   has_many :peer_selections
-  
+
   has_many :evaluations, dependent: :destroy
   has_many :peer_evaluations, through: :peer_selections
-  has_many :self_evaluations 
+  has_many :self_evaluations
   has_many :manager_evaluations
 
-  has_one  :current_self_evaluation, -> { where(period: Period.get_current_period, type: 'SelfEvaluation') }, 
+  has_many :current_evaluations, -> { where(period: Period.get_current_period) },
            class_name: 'Evaluation'
-  has_many :current_peer_evaluations, -> { where(period: Period.get_current_period, type: 'PeerEvaluation') }, 
+  has_one  :current_self_evaluation, -> { where(period: Period.get_current_period, type: 'SelfEvaluation') },
            class_name: 'Evaluation'
-  has_one  :current_manager_evaluation, -> { where(period: Period.get_current_period, type: 'ManagerEvaluation') }, 
+  has_many :current_peer_evaluations, -> { where(period: Period.get_current_period, type: 'PeerEvaluation') },
+           class_name: 'Evaluation'
+  has_one  :current_manager_evaluation, -> { where(period: Period.get_current_period, type: 'ManagerEvaluation') },
            class_name: 'Evaluation'
 
   VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
 
-  validates :email, presence: true, 
+  validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
-                    format: { with: VALID_EMAIL_REGEX }, 
+                    format: { with: VALID_EMAIL_REGEX },
                     length: {maximum: 30}
   validates :name, presence: true, length: {maximum: 30}
   validates :job, presence: true
@@ -30,7 +32,7 @@ class Staff < ActiveRecord::Base
   validates :display_password, length: {maximum: 10}
 
   after_create :generate_password!
- 
+
 
   def generate_password!
     generated_password = Devise.friendly_token.first(8)

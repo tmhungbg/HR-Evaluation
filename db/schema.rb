@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819034252) do
+ActiveRecord::Schema.define(version: 20160819110111) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -158,27 +158,28 @@ ActiveRecord::Schema.define(version: 20160819034252) do
   add_index "rel_evaluation_answers", ["question_id"], name: "index_rel_evaluation_answers_on_question_id", using: :btree
 
   create_table "staffs", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",   null: false
-    t.string   "encrypted_password",     limit: 255, default: "",   null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,    null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.integer  "failed_attempts",        limit: 4,   default: 0,    null: false
+    t.integer  "failed_attempts",        limit: 4,   default: 0,     null: false
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "display_password",       limit: 255
     t.string   "name",                   limit: 255
     t.integer  "job",                    limit: 4
     t.boolean  "active",                             default: true
     t.string   "unique_session_id",      limit: 20
     t.date     "date_start_work"
+    t.boolean  "is_senior",                          default: false, null: false
   end
 
   add_index "staffs", ["email"], name: "index_staffs_on_email", unique: true, using: :btree
