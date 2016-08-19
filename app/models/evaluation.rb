@@ -10,12 +10,14 @@ class Evaluation < ActiveRecord::Base
   accepts_nested_attributes_for :rel_evaluation_answers
 
   before_create :set_default_status
-  after_create  :initialize_evaluation_answers
   after_save    :calculate_score, if: -> { self.evaluated? }
 
-  protected
+  validates :period, presence: true, unless: -> { type == 'PeerEvaluation' }
+  validates :staff, presence: true, unless: -> { type == 'PeerEvaluation' }
+  validates :reviewer, presence: true, if: -> { type == 'PeerEvaluation' }
 
   def initialize_evaluation_answers
+    return if rel_evaluation_answers.present?
     evaluation_answers = []
     Question.active.each do |question|
       evaluation_answers << {question: question, evaluation: self}

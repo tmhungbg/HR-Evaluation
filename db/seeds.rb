@@ -74,11 +74,14 @@ period = Period.phase_6.first
 staffs = period.staffs
 staff_ids = staffs.pluck(:id)
 staffs.each do |staff|
-  peer_selection = PeerSelection.find_by(staff: staff, period: period)
-  peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
+  peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
   peer_evaluations = peer_selection.reload.peer_evaluations
-  self_evaluation = SelfEvaluation.find_by(staff: staff, period: period)
-  manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
+  self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
+  manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
+
+  peer_evaluations.map(&:initialize_evaluation_answers)
+  self_evaluation.initialize_evaluation_answers
+  manager_evaluation.initialize_evaluation_answers
 
   # Update point  
   self_evaluation.rel_evaluation_answers.each do |answer|
@@ -105,11 +108,14 @@ period = Period.phase_5.first
 staffs = period.staffs
 staff_ids = staffs.pluck(:id)
 staffs.each do |staff|
-  peer_selection = PeerSelection.find_by(staff: staff, period: period)
-  peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
+  peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
   peer_evaluations = peer_selection.reload.peer_evaluations
-  self_evaluation = SelfEvaluation.find_by(staff: staff, period: period)
-  manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
+  self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
+  manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
+
+  peer_evaluations.map(&:initialize_evaluation_answers)
+  self_evaluation.initialize_evaluation_answers
+  manager_evaluation.initialize_evaluation_answers
 
   # Update point  
   self_evaluation.rel_evaluation_answers.each do |answer|

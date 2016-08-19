@@ -1,6 +1,8 @@
 class Staff::EvaluationsController < StaffController
   def edit
     @evaluation = current_staff.evaluations.find_by(period: current_period)
+    @evaluation.initialize_evaluation_answers
+    @evaluation.reload
   end
 
   def update

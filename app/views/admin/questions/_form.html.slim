@@ -1,6 +1,7 @@
 = simple_form_for [:admin, @question] do |f| 
   = f.association :question_group 
   = f.input :name
+  = f.input :short_description
   .well 
     h4 Answer Descriptions
     = f.simple_fields_for :answers do |answer|

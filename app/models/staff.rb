@@ -11,7 +11,7 @@ class Staff < ActiveRecord::Base
   has_many :self_evaluations 
   has_many :manager_evaluations
 
-  has_one  :current_self_evaluation, -> { where(period: Period.get_current_period, type: 'SeflEvaluation') }, 
+  has_one  :current_self_evaluation, -> { where(period: Period.get_current_period, type: 'SelfEvaluation') }, 
            class_name: 'Evaluation'
   has_many :current_peer_evaluations, -> { where(period: Period.get_current_period, type: 'PeerEvaluation') }, 
            class_name: 'Evaluation'
