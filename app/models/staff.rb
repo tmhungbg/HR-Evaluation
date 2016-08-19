@@ -1,17 +1,24 @@
 class Staff < ActiveRecord::Base
   devise :database_authenticatable, :lockable, :timeoutable, :session_limitable
-
-  VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
+  enum job: [:admin, :designer, :developer, :manager, :sales_marketing, :tester]
 
   has_many :evaluation_results
   has_many :periods, through: :evaluation_results
   has_many :peer_selections
+  
+  has_many :evaluations, dependent: :destroy
   has_many :peer_evaluations, through: :peer_selections
-  has_many :self_evaluations
+  has_many :self_evaluations 
   has_many :manager_evaluations
 
+  has_one  :current_self_evaluation, -> { where(period: Period.get_current_period, type: 'SelfEvaluation') }, 
+           class_name: 'Evaluation'
+  has_many :current_peer_evaluations, -> { where(period: Period.get_current_period, type: 'PeerEvaluation') }, 
+           class_name: 'Evaluation'
+  has_one  :current_manager_evaluation, -> { where(period: Period.get_current_period, type: 'ManagerEvaluation') }, 
+           class_name: 'Evaluation'
 
-  enum job: [:admin, :designer, :developer, :manager, :sales_marketing, :tester]
+  VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
 
   validates :email, presence: true, 
                     uniqueness: { case_sensitive: false },
@@ -19,6 +26,7 @@ class Staff < ActiveRecord::Base
                     length: {maximum: 30}
   validates :name, presence: true, length: {maximum: 30}
   validates :job, presence: true
+  validates :date_start_work, presence: true
   validates :display_password, length: {maximum: 10}
 
   after_create :generate_password!

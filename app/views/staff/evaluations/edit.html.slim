@@ -1,7 +1,7 @@
 - group_name  = ''
 section
   h1
-  = simple_form_for [:staff, @self_evaluation] do |f|
+  = simple_form_for [:staff, @evaluation], url: staff_evaluation_path do |f|
     = f.simple_fields_for :rel_evaluation_answers do |a|
         - question_group  = a.object.question.question_group
         - if question_group.name  != group_name
@@ -9,8 +9,9 @@ section
           h2.page-header.text-success data-toggle="collapse" data-target="#group_#{question_group.id}"
             = a.object.question.question_group.name
         .well
-          h4 = a.object.question.question
-          = a.input :point, as: :radio_buttons, wrapper: :vertical_radio_and_checkboxes, label: 'Answer'
+          h4 = a.object.question.name
+          label Answer
+          = a.collection_radio_buttons :point, a.object.question.answers, :id, :name
           = a.input :comment
           = a.input :updated_at, as: :hidden, input_html:  { value: Time.current }
     .btn-actions

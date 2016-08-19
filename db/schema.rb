@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818061633) do
+ActiveRecord::Schema.define(version: 20160819034252) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160818061633) do
   add_index "admins", ["unlock_token"], name: "index_admins_on_unlock_token", unique: true, using: :btree
 
   create_table "answers", force: :cascade do |t|
-    t.string   "answer",        limit: 255
+    t.string   "name",          limit: 255
     t.integer  "display_order", limit: 4
     t.integer  "point",         limit: 4
     t.datetime "created_at",                null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160818061633) do
 
   create_table "evaluations", force: :cascade do |t|
     t.integer  "peer_selection_id", limit: 4
+    t.integer  "reviewer_id",       limit: 4
     t.integer  "staff_id",          limit: 4
     t.integer  "period_id",         limit: 4
     t.string   "type",              limit: 255
@@ -76,6 +77,7 @@ ActiveRecord::Schema.define(version: 20160818061633) do
 
   add_index "evaluations", ["peer_selection_id"], name: "index_evaluations_on_peer_selection_id", using: :btree
   add_index "evaluations", ["period_id"], name: "index_evaluations_on_period_id", using: :btree
+  add_index "evaluations", ["reviewer_id"], name: "index_evaluations_on_reviewer_id", using: :btree
   add_index "evaluations", ["staff_id"], name: "index_evaluations_on_staff_id", using: :btree
 
   create_table "managers", force: :cascade do |t|
@@ -132,12 +134,13 @@ ActiveRecord::Schema.define(version: 20160818061633) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.text     "question",          limit: 65535
+    t.text     "name",              limit: 65535
     t.integer  "display_order",     limit: 4
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.boolean  "active",                          default: true
     t.integer  "question_group_id", limit: 4
+    t.string   "short_description", limit: 255
   end
 
   add_index "questions", ["question_group_id"], name: "index_questions_on_question_group_id", using: :btree
@@ -175,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160818061633) do
     t.integer  "job",                    limit: 4
     t.boolean  "active",                             default: true
     t.string   "unique_session_id",      limit: 20
+    t.date     "date_start_work"
   end
 
   add_index "staffs", ["email"], name: "index_staffs_on_email", unique: true, using: :btree
@@ -187,6 +191,7 @@ ActiveRecord::Schema.define(version: 20160818061633) do
   add_foreign_key "evaluations", "peer_selections"
   add_foreign_key "evaluations", "periods"
   add_foreign_key "evaluations", "staffs"
+  add_foreign_key "evaluations", "staffs", column: "reviewer_id"
   add_foreign_key "peer_selections", "periods"
   add_foreign_key "peer_selections", "staffs"
   add_foreign_key "questions", "question_groups"

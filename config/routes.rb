@@ -20,31 +20,27 @@ Rails.application.routes.draw do
     resources :periods do
       get :send_account_infor, on: :collection
     end
-    resources :evaluation_results do 
-    end
+    resources :evaluation_results, only: [:index, :show]
     resources :questions do
       member do
         get :move_up
         get :move_down
       end
     end
-    resources :answers
     resources :progress, only: [:index]
-    resources :result, only: [:index, :show]
   end
 
   namespace :staff do
     root to: "pages#home"
     resources :peer_selections, only: [:index, :update]
-    resources :self_evaluations, only: [:index, :update]
-    resources :peer_evaluations, only: [:index, :update, :edit]
-    resources :evaluations, only: [:edit, :update]
+    resources :evaluations, only: [:edit, :update] do
+      get 'peer_evaluation_list', on: :collection
+    end
     resources :evaluation_results, only: [:index]
   end
 
   namespace :manager do 
     root to: "pages#home"
-    resources :manager_evaluations, only: [:edit, :update]
+    resources :evaluations, only: [:edit, :update]
   end
-  # get '/admin/staffs/generate_password', to:'admin/staffs#generate_password', as:'generate_password_staffs'
 end

@@ -1,6 +1,6 @@
 class Staff::PeerSelectionsController < StaffController
   def index
-    @peer_selection = PeerSelection.find_or_create_by(staff: current_staff, period: current_period)
+    @peer_selection = PeerSelection.find_by(staff: current_staff, period: current_period)
   end
 
   def update

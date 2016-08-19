@@ -1,27 +1,27 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# # This file should contain all the record creation needed to seed the database with its default values.
+# # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+# #
+# # Examples:
+# #
+# #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+# #   Mayor.create(name: 'Emanuel', city: cities.first)
 admins = [
   {email:"nam@mmj.vn", password:"123456"}
 ]
 staffs = [
-  {name: "tran minh hung", email:"hung@mmj.vn", job:"developer"}, 
-  {name: "nguyen tat nam", email:"nam@mmj.vn", job:"developer"},
-  {name: "nguyen xuan thanh", email:"thanh@mmj.vn", job:"developer"},
-  {name: "nguyen tien manh", email:"manh@mmj.vn", job:"developer"},
-  {name: "bui ha", email:"ha@mmj.vn", job:"sales_marketing"},
-  {name: "nguyen khanh ha", email:"ha2@mmj.vn", job:"developer"},
-  {name: "tran duy duong", email:"duong@mmj.vn", job:"developer"},
-  {name: "tran trung nghia", email:"nghia@mmj.vn", job:"developer"},
+  {name: "tran minh hung",    email:"hung@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago) }, 
+  {name: "nguyen tat nam",    email:"nam@mmj.vn",   job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "nguyen xuan thanh", email:"thanh@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "nguyen tien manh",  email:"manh@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "bui ha",            email:"ha@mmj.vn",    job:"sales_marketing", date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "nguyen khanh ha",   email:"ha2@mmj.vn",   job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "tran duy duong",    email:"duong@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "tran trung nghia",  email:"nghia@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
 ]
 managers = [
   {name: "nguyen ngoc tuan", email:"tuan@mmj.vn", job:"manager"},
-  {name: "imamura", email:"ima@mmj.vn", job:"manager"},
-  {name: "nguyen thi thu", email:"thu@mmj.vn", job:"admin"}
+  {name: "imamura",          email:"ima@mmj.vn",  job:"manager"},
+  {name: "nguyen thi thu",   email:"thu@mmj.vn",  job:"admin"}
 ]
 
 question_groups = [
@@ -30,7 +30,7 @@ question_groups = [
   {name: 'INTERPERSONAL SKILLS'},
   {name: 'TIME MANAGEMENT SKILLS'},
   {name: 'DEVELOPING OTHERS SKILLS'},
-  {name: 'MANAGING PERFORMANCE SKILLS'}
+  {name: 'MANAGING P ERFORMANCE SKILLS'}
 ]
 QuestionGroup.create!(question_groups)
 
@@ -44,28 +44,28 @@ periods = [
 Period.create!(periods)
 
 questions = [
-  {question: 'This person understands the Company Rules, Policies and tries to comply with the Rule.', question_group: QuestionGroup.first},
-  {question: 'This person respects and follows the decision of the managers.', question_group: QuestionGroup.first},
-  {question: 'This person is always responsible for the tasks assigned to himself/herself', question_group: QuestionGroup.first},
-  {question: 'This person comes to work with positive and "can do" attitude', question_group: QuestionGroup.first},
-  {question: 'This person acts as an active team member in projects or works that requires working with others.', question_group: QuestionGroup.find(2)},
-  {question: 'This person listens and responses constructively to other team members\' ideas', question_group: QuestionGroup.find(2)},
-  {question: 'This person expresses disagreement construtively.', question_group: QuestionGroup.find(2)},
-  {question: ' This person is willing to share knowledge and information with others', question_group: QuestionGroup.find(2)},
-  {question: 'This person communicates information and ideas honestly and in a constructive way.', question_group: QuestionGroup.find(3)},
-  {question: 'This person communicates effectively and in a logical sequence to ensure that the sent out message is well understood.', question_group: QuestionGroup.find(3)},
-  {question: 'This person uses appropriate non-verbal communication when communicating with others.', question_group: QuestionGroup.find(3)},
-  {question: 'This person is friendly, respectful and comfortable to work will all people in the company.', question_group: QuestionGroup.find(3)},
-  {question: 'This person understands the important level of the tasks and is able to priotize the tasks by importance and deadline.', question_group: QuestionGroup.find(4)},
-  {question: 'This person attends in all meetings and schedule as requirements.', question_group: QuestionGroup.find(4)},
-  {question: 'This person in on time for works and all occasions at work.', question_group: QuestionGroup.find(4)},
-  {question: 'This person always commits to the deadlines.', question_group: QuestionGroup.find(4)},
-  {question: 'This person works with staffs to identify areas for development and improvement.', question_group: QuestionGroup.find(5)},
-  {question: 'This person provides effective coaching to other members.', question_group: QuestionGroup.find(5)},
-  {question: 'This person motivates staffs to reach the goals and objectives.', question_group: QuestionGroup.find(5)},
-  {question: 'This person works and guides me to set the goals for the works and career development of his/ her subordinate(s).', question_group: QuestionGroup.find(6)},
-  {question: 'This person always gives clarify expectations about the results that he/ she expects from the subordinates.', question_group: QuestionGroup.find(6)},
-  {question: 'This person has the fair and correct feeback and evaluation on the performance of the subordinates.', question_group: QuestionGroup.find(6)},
+  {name: 'This person understands the Company Rules, Policies and tries to comply with the Rule.',                                 question_group: QuestionGroup.first},
+  {name: 'This person respects and follows the decision of the managers.',                                                         question_group: QuestionGroup.first},
+  {name: 'This person is always responsible for the tasks assigned to himself/herself',                                            question_group: QuestionGroup.first},
+  {name: 'This person comes to work with positive and "can do" attitude',                                                          question_group: QuestionGroup.first},
+  {name: 'This person acts as an active team member in projects or works that requires working with others.',                      question_group: QuestionGroup.find(2)},
+  {name: 'This person listens and responses constructively to other team members\' ideas',                                         question_group: QuestionGroup.find(2)},
+  {name: 'This person expresses disagreement construtively.',                                                                      question_group: QuestionGroup.find(2)},
+  {name: 'This person is willing to share knowledge and information with others',                                                  question_group: QuestionGroup.find(2)},
+  {name: 'This person communicates information and ideas honestly and in a constructive way.',                                     question_group: QuestionGroup.find(3)},
+  {name: 'This person communicates effectively and in a logical sequence to ensure that the sent out message is well understood.', question_group: QuestionGroup.find(3)},
+  {name: 'This person uses appropriate non-verbal communication when communicating with others.',                                  question_group: QuestionGroup.find(3)},
+  {name: 'This person is friendly, respectful and comfortable to work will all people in the company.',                            question_group: QuestionGroup.find(3)},
+  {name: 'This person understands the important level of the tasks and is able to priotize the tasks by importance and deadline.', question_group: QuestionGroup.find(4)},
+  {name: 'This person attends in all meetings and schedule as requirements.',                                                      question_group: QuestionGroup.find(4)},
+  {name: 'This person in on time for works and all occasions at work.',                                                            question_group: QuestionGroup.find(4)},
+  {name: 'This person always commits to the deadlines.',                                                                           question_group: QuestionGroup.find(4)},
+  {name: 'This person works with staffs to identify areas for development and improvement.',                                       question_group: QuestionGroup.find(5)},
+  {name: 'This person provides effective coaching to other members.',                                                              question_group: QuestionGroup.find(5)},
+  {name: 'This person motivates staffs to reach the goals and objectives.',                                                        question_group: QuestionGroup.find(5)},
+  {name: 'This person works and guides me to set the goals for the works and career development of his/ her subordinate(s).',      question_group: QuestionGroup.find(6)},
+  {name: 'This person always gives clarify expectations about the results that he/ she expects from the subordinates.',            question_group: QuestionGroup.find(6)},
+  {name: 'This person has the fair and correct feeback and evaluation on the performance of the subordinates.',                    question_group: QuestionGroup.find(6)},
 ]
 
 Question.create!(questions)
@@ -75,13 +75,12 @@ staffs = period.staffs
 staff_ids = staffs.pluck(:id)
 staffs.each do |staff|
   peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
-  peer_evaluations = peer_selection.peer_evaluations
+  peer_evaluations = peer_selection.reload.peer_evaluations
   self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
   manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
 
-  #Init ansewrs
+  peer_evaluations.map(&:initialize_evaluation_answers)
   self_evaluation.initialize_evaluation_answers
-  peer_evaluations.each{|e| e.initialize_evaluation_answers}
   manager_evaluation.initialize_evaluation_answers
 
   # Update point  
@@ -110,13 +109,12 @@ staffs = period.staffs
 staff_ids = staffs.pluck(:id)
 staffs.each do |staff|
   peer_selection = PeerSelection.create!(staff: staff, period: period, reviewer_ids: (staff_ids - [staff.id]).sample(3))
-  peer_evaluations = peer_selection.peer_evaluations
+  peer_evaluations = peer_selection.reload.peer_evaluations
   self_evaluation = SelfEvaluation.create!(staff: staff, period: period)
   manager_evaluation = ManagerEvaluation.create!(staff: staff, period: period)
 
-  #Init ansewrs
+  peer_evaluations.map(&:initialize_evaluation_answers)
   self_evaluation.initialize_evaluation_answers
-  peer_evaluations.each{|e| e.initialize_evaluation_answers}
   manager_evaluation.initialize_evaluation_answers
 
   # Update point  
