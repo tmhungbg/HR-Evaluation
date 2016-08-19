@@ -5,7 +5,7 @@ class Manager::ManagerEvaluationsController < ManagerController
       redirect_to manager_root_path
       return
     end
-    @manager_evaluation = ManagerEvaluation.by_period(current_period).find(params[:id])
+    @manager_evaluation = ManagerEvaluation.find(params[:id])
   end
 
   def update
@@ -14,7 +14,7 @@ class Manager::ManagerEvaluationsController < ManagerController
       redirect_to manager_root_path
       return
     end
-    @manager_evaluation = ManagerEvaluation.by_period(current_period).find(params[:id])
+    @manager_evaluation = ManagerEvaluation.find(params[:id])
     @manager_evaluation.attributes = manager_evaluation_params
     # Assign status
     if params[:context] == 'Save'

@@ -23,7 +23,7 @@
   <% @questions.each.with_index(1) do |q, index| %>
     <tr>
       <td><%= index %></td>
-      <td><%= q.question %></td>
+      <td><%= q.name %></td>
       <td><%= q.display_order %></td>
       <td><%= q.question_group.name %></td>
       <td><%= render_question_move_up_btn(q) %></td>

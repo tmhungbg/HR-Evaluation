@@ -52,7 +52,7 @@
     <% @questions.each.with_index(1) do |qe, index| %>
       <tr>
         <td><%= index %></td>
-        <td><%= qe.question %></td>
+        <td><%= qe.name %></td>
         <td><%= self_evaluation_point(qe, @self_answers) %></td>
         <td><%= peer_evaluation_point(qe, @peer_answers) %></td>
         <td><%= diff_point_display(peer_evaluation_point(qe, @peer_answers) - self_evaluation_point(qe, @self_answers)) %></td>

@@ -1,8 +1,10 @@
 class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
+  accepts_nested_attributes_for :answers
+
   belongs_to :question_group
   
-  validates :question, presence: true
+  validates :name, presence: true
   validates :question_group, presence: true
   
   before_create :add_order
@@ -16,11 +18,23 @@ class Question < ActiveRecord::Base
   def generate_answer
     self.answers.create!(
       [
-        {answer:"Great",            order: 5, point: 5},
-        {answer:"Very Good",        order: 4, point: 4},
-        {answer:"Acceptable",       order: 3, point: 3},
-        {answer:"Need Improvement", order: 2, point: 2},
-        {answer:"Not Satisfied",    order: 1, point: 1}
+        {name:"Great",            display_order: 5, point: 5},
+        {name:"Very Good",        display_order: 4, point: 4},
+        {name:"Acceptable",       display_order: 3, point: 3},
+        {name:"Need Improvement", display_order: 2, point: 2},
+        {name:"Not Satisfied",    display_order: 1, point: 1}
+      ]
+    )
+  end
+
+  def build_answer
+    self.answers.build(
+      [
+        {name:"Great",            display_order: 5, point: 5},
+        {name:"Very Good",        display_order: 4, point: 4},
+        {name:"Acceptable",       display_order: 3, point: 3},
+        {name:"Need Improvement", display_order: 2, point: 2},
+        {name:"Not Satisfied",    display_order: 1, point: 1}
       ]
     )
   end
@@ -54,7 +68,7 @@ class Question < ActiveRecord::Base
   def generate_guideline
     result = "Guideline for question #{display_order}\n"
     answers.sort_by(&:display_order).each.with_index(1) do |answer, index|
-      result << "#{index}. #{answer.answer}\n"
+      result << "#{index}. #{answer.name}\n"
     end
     result
   end

@@ -38,4 +38,4 @@ table.table.table-striped.table-hover
             - if period.current_period?
               = link_to 'Progress', admin_progress_index_path , class: 'btn btn-primary'
             - if period.phase_5? || period.phase_6?
-              = link_to 'Result', admin_result_index_path(period_id: period.id) , class: 'btn btn-default'
+              = link_to 'Result', admin_evaluation_results_path(period_id: period.id) , class: 'btn btn-default'

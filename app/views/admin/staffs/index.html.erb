@@ -16,6 +16,7 @@
       <th>No</th>
       <th>Name</th>
       <th>Job</th>
+      <th>Start Work</th>
       <th>Email</th>
       <th>Password</th>
       <th colspan="4" class="text-center">Action</th>
@@ -24,21 +25,12 @@
   <tbody>
     <% @staffs.each.with_index(1) do |staff, index| %>
     <tr>
-      <td>
-      <%= index %>
-      </td>
-      <td>
-        <%= staff.name %>
-      </td>
-      <td>
-        <%= staff.job %>
-      </td>
-      <td>
-      <%= staff.email %>
-      </td>
-      <td>
-      <%= staff.display_password %>
-      </td>
+      <td><%= index %></td>
+      <td><%= staff.name %></td>
+      <td><%= staff.job %></td>
+      <td><%= staff.date_start_work %></td>
+      <td><%= staff.email %></td>
+      <td><%= staff.display_password %></td>
       <td>
         <%= link_to "Edit", edit_admin_staff_path(staff.id), class: "btn btn-success" %>
       </td>

@@ -10,6 +10,8 @@ class Period < ActiveRecord::Base
   validate :start_time_less_than_end_time
   validate :not_overlap
 
+  after_save :initialize_evaluations
+
   def start_time_less_than_end_time
     return if start_time.blank? || end_time.blank?
     errors.add(:end_time, "must be larger than start_time") if start_time > end_time
@@ -61,5 +63,12 @@ class Period < ActiveRecord::Base
     managers.each do |manager|
       EvaluationMailer.send_account_infor(manager).deliver_now
     end 
+  end
+
+  private 
+
+  def initialize_evaluations
+    PeerSelection.where(period: self).where.not(staff_id: self.staff_ids).destroy_all
+    Evaluation.where(period: self).where.not(staff_id: self.staff_ids).destroy_all
   end
 end

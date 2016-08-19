@@ -2,6 +2,7 @@ class Admin::QuestionsController < AdminController
 
   def new
     @question = Question.new
+    @question.build_answer
   end
 
   def index
@@ -69,6 +70,9 @@ class Admin::QuestionsController < AdminController
   private
 
   def question_params
-    params.require(:question).permit(:question, :question_group_id)
+    params.require(:question).permit(
+      :question, :question_group_id, 
+      answers_attributes: [:id, :name, :point,:display_order]
+    )
   end
 end
