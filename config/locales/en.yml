@@ -25,8 +25,17 @@ en:
       phase:
         phase_1: "Phase 1: Preparation"
         phase_2: "Phase 2: Peer Selection"
-        phase_3: "Phase 3: Self Evaluation and Peer Evaluation"
+        phase_3: "Phase 3: Self Evaluation, Peer Evaluation and Supervisor Evaluation"
         phase_4: "Phase 4: Evaluaton by Manager"
         phase_5: "Phase 5: Reporting"
         phase_6: "Phase 6: Closed"
+    rel_evaluation_answer:
+      point:
+        greate: 'Greate'
+        very_good: 'Very Good'
+        acceptable: 'Acceptable'
+        need_improvement: 'Need Improvement'
+        not_satisfied: 'Not satisfied'
+        not_selected: 'Not Selected'
+        can_not_evaluate: 'Can not evaluate'
 
