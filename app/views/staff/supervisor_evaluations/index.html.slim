@@ -1,5 +1,5 @@
-h2 Peer Evaluation
-- if @peer_evaluations.blank?
+h2 Supervisor Evaluation
+- if @supervisor_evaluations.blank?
   p There is no evaluation request
 - else
   table.table.table-striped.table-hover
@@ -9,8 +9,8 @@ h2 Peer Evaluation
         th Status
         th Evaluation
     tbody
-      - @peer_evaluations.each do |pe|
+      - @supervisor_evaluations.each do |pe|
         tr
           td = pe.staff.name
           td = pe.status
-          td = link_to 'Review', edit_staff_peer_evaluation_path(pe), class: 'btn btn-primary'
+          td = link_to 'Review', edit_staff_supervisor_evaluation_path(pe), class: 'btn btn-primary'

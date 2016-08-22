@@ -7,7 +7,7 @@
 <% end %>
 <div class="action-link pull-right">
   <%= link_to "Create Staff" , new_admin_staff_path, class: 'btn btn-primary' %>
-  <%= link_to "Generate Password All" , generate_password_all_admin_staffs_path, 
+  <%= link_to "Generate Password All" , generate_password_all_admin_staffs_path,
       class: 'btn btn-success', 'data-no-turbolink' => false %>
 </div>
 <table class="table table-striped table-hover">
@@ -17,6 +17,9 @@
       <th>Name</th>
       <th>Job</th>
       <th>Start Work</th>
+      <th>Is Senior</th>
+      <th>Is Supervisor</th>
+      <th>Supervisor</th>
       <th>Email</th>
       <th>Password</th>
       <th colspan="4" class="text-center">Action</th>
@@ -29,17 +32,20 @@
       <td><%= staff.name %></td>
       <td><%= staff.job %></td>
       <td><%= staff.date_start_work %></td>
+      <td><%= staff.display_is_senior %></td>
+      <td><%= staff.display_is_supervisor %></td>
+      <td><%= staff.supervisor.try(:name) %></td>
       <td><%= staff.email %></td>
       <td><%= staff.display_password %></td>
       <td>
         <%= link_to "Edit", edit_admin_staff_path(staff.id), class: "btn btn-success" %>
       </td>
       <td>
-        <%= link_to "Change Password", generate_password_admin_staff_path(staff.id),
+        <%= link_to "Password", generate_password_admin_staff_path(staff.id),
              class: "btn btn-success" %>
       </td>
       <td>
-        <%= link_to "Delete", admin_staff_path(staff.id), 
+        <%= link_to "Delete", admin_staff_path(staff.id),
             method: :delete, class: "btn btn-danger",
             data: {confirm: "Bạn có thật sự muốn vô hiệu hóa tài khỏa này"} %>
       </td>

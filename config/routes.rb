@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :peer_selections, only: [:index, :update]
     resources :self_evaluations, only: [:edit, :update]
     resources :peer_evaluations, only: [:index, :edit, :update]
+    resources :supervisor_evaluations, only: [:index, :edit, :update]
     resources :evaluation_results, only: [:index]
   end
 

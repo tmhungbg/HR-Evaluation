@@ -1,7 +1,7 @@
 class StaffController < ApplicationController
   before_action :authenticate_staff!
 
-  protected 
+  protected
 
   def authenticate_staff!
     super

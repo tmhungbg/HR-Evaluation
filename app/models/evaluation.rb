@@ -14,7 +14,7 @@ class Evaluation < ActiveRecord::Base
 
   validates :period, presence: true, unless: -> { type == 'PeerEvaluation' }
   validates :staff, presence: true, unless: -> { type == 'PeerEvaluation' }
-  validates :reviewer, presence: true, if: -> { type == 'PeerEvaluation' }
+  validates :reviewer, presence: true, if: -> { type == 'PeerEvaluation' || type == 'SupervisorEvaluation'}
 
   def initialize_evaluation_answers
     return if rel_evaluation_answers.present?

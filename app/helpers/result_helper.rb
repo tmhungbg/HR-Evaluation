@@ -4,6 +4,11 @@ module ResultHelper
     answer[:point].to_i > 0 ? answer[:point] : answer.point_i18n
   end
 
+  def supervisor_evaluation_point(question, supervisor_answers)
+    answer = supervisor_answers.find{|a| a.question_id == question.id }
+    answer[:point].to_i > 0 ? answer[:point] : answer.point_i18n
+  end
+
   def peer_evaluation_point(question, peer_answers)
     points = peer_answers.select{|a| a.question_id == question.id && a[:point].to_i > 0 }
                          .map{ |a| a[:point].to_i }

@@ -61,6 +61,6 @@ class Admin::StaffsController < AdminController
 
   private
     def staff_params
-      params.require(:staff).permit(:name, :job, :email, :date_start_work, :is_senior)
+      params.require(:staff).permit(:name, :job, :email, :date_start_work, :is_senior, :is_supervisor, :supervisor_id)
     end
 end

@@ -2,6 +2,7 @@ class Staff < ActiveRecord::Base
   devise :database_authenticatable, :lockable, :timeoutable, :session_limitable
   enum job: [:admin, :designer, :developer, :manager, :sales_marketing, :tester]
 
+  belongs_to :supervisor, class_name: 'Staff', foreign_key: :supervisor_id
   has_many :evaluation_results
   has_many :periods, through: :evaluation_results
   has_many :peer_selections
@@ -10,6 +11,7 @@ class Staff < ActiveRecord::Base
   has_many :peer_evaluations, through: :peer_selections
   has_many :self_evaluations
   has_many :manager_evaluations
+  has_many :supervisor_evaluations
 
   has_one  :current_peer_selection, -> { where(period: Period.get_current_period) }, class_name: 'PeerSelection'
   has_many :current_evaluations, -> { where(period: Period.get_current_period) },
@@ -20,6 +22,9 @@ class Staff < ActiveRecord::Base
            class_name: 'Evaluation'
   has_one  :current_manager_evaluation, -> { where(period: Period.get_current_period, type: 'ManagerEvaluation') },
            class_name: 'Evaluation'
+  has_one  :current_supervisor_evaluation, -> { where(period: Period.get_current_period, type: 'SupervisorEvaluation') },
+           class_name: 'Evaluation'
+
 
   VALID_EMAIL_REGEX = /\A\w+@((mmj.vn)|(mmj.ne.jp))\z/i
 
@@ -29,8 +34,8 @@ class Staff < ActiveRecord::Base
                     length: {maximum: 30}
   validates :name, presence: true, length: {maximum: 30}
   validates :job, presence: true
-  validates :date_start_work, presence: true
   validates :display_password, length: {maximum: 10}
+  validates :supervisor, presence: true
 
   after_create :generate_password!
 
@@ -56,6 +61,7 @@ class Staff < ActiveRecord::Base
   }
 
   scope :active, -> { where active: true }
+  scope :supervisor, -> { where is_supervisor: true }
 
   def self.for_period(period)
     staff_ids = self.active.pluck(:id) + period.staff_ids
@@ -63,12 +69,11 @@ class Staff < ActiveRecord::Base
   end
 
   def self.for_peer_selection(current_staff)
-    current_period = Period.get_current_period
-    current_period.staffs - [current_staff]
+    current_period.staffs - [current_staff] - [current_staff.supervisor]
   end
 
   def current_period
-    @_current_period ||= periods.find { |p| p.current_period? }
+    Period.get_current_period
   end
 
   def has_current_period?
@@ -80,7 +85,7 @@ class Staff < ActiveRecord::Base
   end
 
   def valid_staff?
-    self.active && self.has_current_period? && self.current_period_in_valid_phase?
+    self.active  && self.current_period_in_valid_phase?
   end
 
   def get_current_reviwer_name
@@ -89,7 +94,7 @@ class Staff < ActiveRecord::Base
   end
 
   def get_current_self_evaluation_status
-    if self_evaluations.find_by(period: current_period).try(:evaluated?)
+    if current_self_evaluation.try(:evaluated?)
       return 'Done'
     else
       return '--'
@@ -97,17 +102,41 @@ class Staff < ActiveRecord::Base
   end
 
   def get_current_peer_evaluation_status
-    return '0 / 0' if current_peer_selection.blank?
-    current_peer_evaluations = current_peer_selection.peer_evaluations
-    "#{current_peer_evaluations.select(&:evaluated?).length} / #{current_peer_evaluations.length}"
+    reviewd_evaluations = PeerEvaluation.where(reviewer: self, period: Period.get_current_period)
+    evaluated_evaluations = reviewd_evaluations.select(&:evaluated?)
+    if evaluated_evaluations.length == reviewd_evaluations.length
+      'Done'
+    else
+      "#{evaluated_evaluations.length} / #{reviewd_evaluations.length}"
+    end
   end
 
-  def get_current_manager_evaluation_status
-    if manager_evaluations.find_by(period: current_period).try(:evaluated?)
+  def get_current_supervisor_evaluation_status
+    if current_supervisor_evaluation.try(:evaluated?)
       return 'Done'
     else
       return '--'
     end
+  end
+
+  def get_current_manager_evaluation_status
+    if current_manager_evaluation.try(:evaluated?)
+      return 'Done'
+    else
+      return '--'
+    end
+  end
+
+  def display_is_senior
+    is_senior ? 'Yes' : 'No'
+  end
+
+  def display_is_supervisor
+    is_supervisor ? 'Yes' : 'No'
+  end
+
+  def get_options_for_supervisor
+    Staff.active.supervisor.where.not(id: self.id).order(:name)
   end
 end
 

@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @staff] do |f|
+  = f.input :name
+  = f.input :email
+  = f.input :job
+  = f.input :date_start_work
+  = f.association :supervisor, collection: @staff.get_options_for_supervisor
+  = f.input :is_senior
+  = f.input :is_supervisor
+  = f.button :submit, class: "btn btn-primary"

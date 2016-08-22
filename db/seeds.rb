@@ -1,22 +1,34 @@
-# # This file should contain all the record creation needed to seed the database with its default values.
-# # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-# #
-# # Examples:
-# #
-# #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-# #   Mayor.create(name: 'Emanuel', city: cities.first)
 admins = [
-  {email:"nam@mmj.vn", password:"123456"}
+  {email:"thu@mmj.vn", password:"123456"}
 ]
 staffs = [
-  {name: "tran minh hung",    email:"hung@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago) },
-  {name: "nguyen tat nam",    email:"nam@mmj.vn",   job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
-  {name: "nguyen xuan thanh", email:"thanh@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
-  {name: "nguyen tien manh",  email:"manh@mmj.vn",  job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
-  {name: "bui ha",            email:"ha@mmj.vn",    job:"sales_marketing", date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
-  {name: "nguyen khanh ha",   email:"ha2@mmj.vn",   job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
-  {name: "tran duy duong",    email:"duong@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
-  {name: "tran trung nghia",  email:"nghia@mmj.vn", job:"developer",       date_start_work: Faker::Date.between(2.years.ago, 6.months.ago)},
+  {name: "Imamura Tomokazu",    email:"ima@mmj.vn",     job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Minh Luan",    email:"minhluan@mmj.vn",job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Ngoc Tuan",    email:"tuan@mmj.vn",    job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Hong Thu",     email:"thu@mmj.vn",     job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Pham Thi Hong Hanh",  email:"hanh@mmj.vn",    job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Le Viet Ha",          email:"vietha@mmj.vn",  job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Tomoya Endo",         email:"tendo@mmj.ne.jp",job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Van Hao",      email:"hao@mmj.vn",     job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Le Ha Minh",          email:"minh@mmj.vn",    job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Le Bao Quoc",         email:"quoc@mmj.vn",    job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Tran Minh Hung",      email:"hung@mmj.vn",    job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Vu Xuan Thanh",       email:"thanh@mmj.vn",   job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Tran Duy Duong",      email:"duong@mmj.vn",   job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 2},
+  {name: "Nguyen Tien Manh",    email:"manh@mmj.vn",    job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 2},
+  {name: "Nguyen Tat Nam",      email:"nam@mmj.vn",     job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 2},
+  {name: "Nguyen Kim Quy",      email:"quy@mmj.vn",     job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 3},
+  {name: "Dang Manh Cuong",     email:"cuong@mmj.vn",   job:"designer",        is_supervisor: false, is_senior: false, supervisor_id: 3},
+  {name: "Bui Anh Ha",          email:"buiha@mmj.vn",   job:"sales_marketing", is_supervisor: false, is_senior: false, supervisor_id: 3},
+  {name: "Le Duc Hoang Anh",    email:"hoanganh@mmj.vn",job:"sales_marketing", is_supervisor: false, is_senior: false, supervisor_id: 3},
+  {name: "Nguyen Thuy Linh",    email:"thuylinh@mmj.vn",job:"sales_marketing", is_supervisor: false, is_senior: false, supervisor_id: 3},
+  {name: "Le Phuong Thao",      email:"thao@mmj.vn",    job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 4},
+  {name: "Dao Thi Thanh Hue",   email:"hue@mmj.vn",     job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 4},
+  {name: "Le Thi Thuy Luan",    email:"thuyluan@mmj.vn",job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 5},
+  {name: "Hoang Thi Khanh Ngoc",email:"ngoc@mmj.vn",    job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 5},
+  {name: "Tran Hai Yen",        email:"yen@mmj.vn",     job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 5},
+  {name: "Ngo Duy Thuy Nuong",  email:"nuong@mmj.vn",   job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 5},
+  {name: "Trinh Thi Hien",      email:"hien@mmj.vn",    job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 5},
 ]
 managers = [
   {name: "nguyen ngoc tuan", email:"tuan@mmj.vn", job:"manager"},
@@ -32,6 +44,7 @@ question_groups = [
   {name: 'DEVELOPING OTHERS SKILLS'},
   {name: 'MANAGING P ERFORMANCE SKILLS'}
 ]
+
 p 'Create question group'
 QuestionGroup.create!(question_groups)
 
@@ -175,16 +188,21 @@ staff_ids = staffs.pluck(:id)
 staffs.each do |staff|
   peer_selection = PeerSelection.find_by(staff: staff, period: period)
   peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
-  peer_evaluations = peer_selection.reload.peer_evaluations
-  self_evaluation = SelfEvaluation.find_by(staff: staff, period: period)
-  manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
+  peer_evaluations      = peer_selection.reload.peer_evaluations
+  self_evaluation       = SelfEvaluation.find_by(staff: staff, period: period)
+  supervisor_evaluation = SupervisorEvaluation.find_by(staff: staff, period: period)
+  manager_evaluation    = ManagerEvaluation.find_by(staff: staff, period: period)
 
   peer_evaluations.map(&:initialize_evaluation_answers)
   self_evaluation.initialize_evaluation_answers
+  supervisor_evaluation.initialize_evaluation_answers
   manager_evaluation.initialize_evaluation_answers
 
   # Update point
   self_evaluation.rel_evaluation_answers.each do |answer|
+    answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+  end
+  supervisor_evaluation.rel_evaluation_answers.each do |answer|
     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
   end
   peer_evaluations.each do |peer_e|
@@ -198,46 +216,47 @@ staffs.each do |staff|
 
   # Update status
   self_evaluation.update!(status: :evaluated)
+  supervisor_evaluation.update!(status: :evaluated)
   peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)}
   manager_evaluation.update!(status: :evaluated)
 end
 
-p 'Update final score'
-EvaluationResult.update_scores(period)
 
-p 'Update data for current_period'
-period = Period.get_current_period
-staffs = period.staffs
-staff_ids = staffs.pluck(:id)
-staffs.each do |staff|
-  peer_selection = PeerSelection.find_by(staff: staff, period: period)
-  peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
-  peer_evaluations = peer_selection.reload.peer_evaluations
-  self_evaluation = SelfEvaluation.find_by(staff: staff, period: period)
-  manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
+# p 'Update data for current_period'
+# staffs = period.staffs
+# staff_ids = staffs.pluck(:id)
+# staffs.each do |staff|
+#   peer_selection = PeerSelection.find_by(staff: staff, period: period)
+#   peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
+#   peer_evaluations      = peer_selection.reload.peer_evaluations
+#   self_evaluation       = SelfEvaluation.find_by(staff: staff, period: period)
+#   supervisor_evaluation = SupervisorEvaluation.find_by(staff: staff, period: period)
+#   manager_evaluation    = ManagerEvaluation.find_by(staff: staff, period: period)
 
-  peer_evaluations.map(&:initialize_evaluation_answers)
-  self_evaluation.initialize_evaluation_answers
-  manager_evaluation.initialize_evaluation_answers
+#   peer_evaluations.map(&:initialize_evaluation_answers)
+#   self_evaluation.initialize_evaluation_answers
+#   supervisor_evaluation.initialize_evaluation_answers
+#   manager_evaluation.initialize_evaluation_answers
 
-  # Update point
-  self_evaluation.rel_evaluation_answers.each do |answer|
-    answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
-  end
-  peer_evaluations.each do |peer_e|
-    peer_e.rel_evaluation_answers.each do |answer|
-      answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
-    end
-  end
-  manager_evaluation.rel_evaluation_answers.each do |answer|
-    answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
-  end
+#   # Update point
+#   self_evaluation.rel_evaluation_answers.each do |answer|
+#     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#   end
+#   supervisor_evaluation.rel_evaluation_answers.each do |answer|
+#     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#   end
+#   peer_evaluations.each do |peer_e|
+#     peer_e.rel_evaluation_answers.each do |answer|
+#       answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#     end
+#   end
+#   manager_evaluation.rel_evaluation_answers.each do |answer|
+#     answer.update!(point: rand(1..5), comment: Faker::Lorem.sentence )
+#   end
 
-  # Update status
-  self_evaluation.update!(status: :evaluated)
-  peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)}
-  manager_evaluation.update!(status: :evaluated)
-end
-
-p 'Update final score'
-EvaluationResult.update_scores(period)
+#   # Update status
+#   self_evaluation.update!(status: :evaluated)
+#   supervisor_evaluation.update!(status: :evaluated)
+#   peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)}
+#   manager_evaluation.update!(status: :evaluated)
+# end

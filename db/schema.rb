@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819110111) do
+ActiveRecord::Schema.define(version: 20160822025912) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -180,10 +180,13 @@ ActiveRecord::Schema.define(version: 20160819110111) do
     t.string   "unique_session_id",      limit: 20
     t.date     "date_start_work"
     t.boolean  "is_senior",                          default: false, null: false
+    t.boolean  "is_supervisor",                      default: false, null: false
+    t.integer  "supervisor_id",          limit: 4
   end
 
   add_index "staffs", ["email"], name: "index_staffs_on_email", unique: true, using: :btree
   add_index "staffs", ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true, using: :btree
+  add_index "staffs", ["supervisor_id"], name: "index_staffs_on_supervisor_id", using: :btree
   add_index "staffs", ["unlock_token"], name: "index_staffs_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "answers", "questions"
