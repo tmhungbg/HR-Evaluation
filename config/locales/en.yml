@@ -38,4 +38,9 @@ en:
         not_satisfied: 'Not satisfied'
         not_selected: 'Not Selected'
         can_not_evaluate: 'Can not evaluate'
+  activerecord:
+    attributes:
+      staff:
+        is_senior: 'Senior'
+        is_supervisor: 'Supervisor'
 
