@@ -20,21 +20,23 @@ class Evaluation < ActiveRecord::Base
     return if rel_evaluation_answers.present?
     evaluation_answers = []
     Question.active.each do |question|
-      evaluation_answers << {question: question, evaluation: self}
+      evaluation_answers << {question: question, evaluation: self, point: :not_selected}
     end
     RelEvaluationAnswer.create!(evaluation_answers)
+    self.reload
   end
 
   def calculate_score
     return unless self.evaluated? && self.rel_evaluation_answers.present?
-    score = self.rel_evaluation_answers.map{|a| a[:point].to_i }.sum.to_f / self.rel_evaluation_answers.length
+    calculated_answers = self.rel_evaluation_answers.select{ |a| a[:point] > 0 }
+    score = calculated_answers.map{ |a| a[:point] }.sum.to_f / calculated_answers.length
     self.update_column(:score, score.round(1))
     EvaluationResult.find_by(staff: staff, period: period).update_score!
   end
 
   private
-  
+
   def set_default_status
     self.status = :not_evaluated
-  end 
+  end
 end

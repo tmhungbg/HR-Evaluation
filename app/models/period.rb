@@ -1,6 +1,6 @@
 class Period < ActiveRecord::Base
   has_many :evaluation_results
-  has_many :evaluation 
+  has_many :evaluation
   has_many :staffs, through: :evaluation_results
 
   enum phase: [:phase_1, :phase_2, :phase_3, :phase_4, :phase_5, :phase_6]
@@ -21,7 +21,7 @@ class Period < ActiveRecord::Base
     errors.add(:end_time, 'is overlaps') if  overlap?
   end
 
-  
+
   def overlap?
     return if start_time.blank? || end_time.blank? || start_time > end_time
     Period.where.not(id: id).each do |period|
@@ -41,11 +41,15 @@ class Period < ActiveRecord::Base
   end
 
   def can_edit?
-    end_time && Date.current <= end_time    
+    end_time && Date.current <= end_time
   end
 
   def staff_names
     staffs.map(&:name).join(', ')
+  end
+
+  def show_time
+    "#{start_time} - #{end_time}"
   end
 
   def self.get_current_period
@@ -58,14 +62,14 @@ class Period < ActiveRecord::Base
 
     staffs.each do |staff|
       EvaluationMailer.send_account_infor(staff).deliver_now
-    end 
+    end
 
     managers.each do |manager|
       EvaluationMailer.send_account_infor(manager).deliver_now
-    end 
+    end
   end
 
-  private 
+  private
 
   def initialize_evaluations
     PeerSelection.where(period: self).where.not(staff_id: self.staff_ids).destroy_all

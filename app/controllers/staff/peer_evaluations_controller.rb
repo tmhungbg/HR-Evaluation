@@ -1,22 +1,25 @@
-class Manager::ManagerEvaluationsController < ManagerController
+class Staff::PeerEvaluationsController < StaffController
+  def index
+    @peer_evaluations = PeerEvaluation.where(reviewer: current_staff, period: current_period)
+  end
+
   def edit
-    if ! current_period.phase_4?
-      flash[:danger] = 'Can not update evaluation in this phase'
-      redirect_to manager_root_path
-      return
-    end
-    @evaluation = ManagerEvaluation.find(params[:id])
+    @evaluation = PeerEvaluation.where(reviewer: current_staff, period: current_period)
+                                .find(params[:id])
     @evaluation.initialize_evaluation_answers
   end
 
   def update
-    if ! current_period.phase_4?
+    if ! current_period.phase_3?
       flash[:danger] = 'Can not update evaluation in this phase'
-      redirect_to manager_root_path
+      redirect_to staff_root_path
       return
     end
-    @evaluation = ManagerEvaluation.find(params[:id])
-    @evaluation.attributes = manager_evaluation_params
+
+    @evaluation = PeerEvaluation.where(reviewer: current_staff, period: current_period)
+                                .find(params[:id])
+
+    @evaluation.attributes = evaluation_params
     # Assign status
     if params[:context] == 'Save'
       @evaluation.status = :evaluated
@@ -27,7 +30,7 @@ class Manager::ManagerEvaluationsController < ManagerController
     end
     if @evaluation.save(context: context)
       flash[:success] = 'Updated successfully'
-      redirect_to manager_root_path
+      redirect_to staff_root_path
     else
       flash[:success] = 'Can not update, please check errors below'
       render :edit
@@ -36,8 +39,8 @@ class Manager::ManagerEvaluationsController < ManagerController
 
   private
 
-  def manager_evaluation_params
-    params.require(:manager_evaluation)
+  def evaluation_params
+    params.require(:peer_evaluation)
           .permit(rel_evaluation_answers_attributes: [:id, :point, :comment,:updated_at])
   end
 end

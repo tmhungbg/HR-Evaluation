@@ -71,7 +71,7 @@ class Admin::QuestionsController < AdminController
 
   def question_params
     params.require(:question).permit(
-      :question, :question_group_id, 
+      :question, :question_group_id, :short_description,
       answers_attributes: [:id, :name, :point,:display_order]
     )
   end

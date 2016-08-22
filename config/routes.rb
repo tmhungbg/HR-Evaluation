@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "pages#home"
     resources :staffs do
-      collection do 
+      collection do
         get 'generate_password_all'
       end
       get 'generate_password', on: :member
     end
-    resources :managers do 
-      collection do 
+    resources :managers do
+      collection do
         get 'generate_password_all'
       end
       get 'generate_password', on: :member
@@ -33,14 +33,13 @@ Rails.application.routes.draw do
   namespace :staff do
     root to: "pages#home"
     resources :peer_selections, only: [:index, :update]
-    resources :evaluations, only: [:edit, :update] do
-      get 'peer_evaluation_list', on: :collection
-    end
+    resources :self_evaluations, only: [:edit, :update]
+    resources :peer_evaluations, only: [:index, :edit, :update]
     resources :evaluation_results, only: [:index]
   end
 
-  namespace :manager do 
+  namespace :manager do
     root to: "pages#home"
-    resources :evaluations, only: [:edit, :update]
+    resources :manager_evaluations, only: [:edit, :update]
   end
 end

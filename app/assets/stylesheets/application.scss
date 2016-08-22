@@ -58,3 +58,13 @@
   max-width:none;
   text-align: left;
 }
+
+.check-box-inline-group {
+  label {
+    font-weight: normal;
+    margin-left: 5px;
+  }
+  span {
+    display: block;
+  }
+}

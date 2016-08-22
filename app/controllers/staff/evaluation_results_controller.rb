@@ -9,7 +9,7 @@ class Staff::EvaluationResultsController < StaffController
     period = @evaluation_result.period
     staff  = @evaluation_result.staff
 
-    @self_evaluation    = SelfEvaluation.by_staff_and_period(staff, period)
+    @self_evaluation    = SelfEvaluation.find_by(staff: staff, period: period)
     @peer_evaluations   = PeerSelection.find_by(staff: staff, period: period).peer_evaluations
     @manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
 

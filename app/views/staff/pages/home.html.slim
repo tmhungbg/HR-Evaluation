@@ -1,5 +1,5 @@
 .list-group.text-center.btn-actions
   = link_to "Peer Selection" , staff_peer_selections_path, class: 'btn btn-lg btn-primary'
-  = link_to "Self Evaluation" , edit_staff_evaluation_path(current_staff.current_self_evaluation), class: 'btn btn-lg btn-primary'
-  = link_to "Peer Evaluation" , peer_evaluation_list_staff_evaluations_path, class: 'btn btn-lg btn-primary'
+  = link_to "Self Evaluation" , edit_staff_self_evaluation_path(current_staff.current_self_evaluation), class: 'btn btn-lg btn-primary'
+  = link_to "Peer Evaluation" , staff_peer_evaluations_path, class: 'btn btn-lg btn-primary'
   = link_to "Result" , staff_evaluation_results_path, class: 'btn btn-lg btn-primary'

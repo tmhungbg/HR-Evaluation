@@ -1,8 +1,7 @@
-class Staff::EvaluationsController < StaffController
+class Staff::SelfEvaluationsController < StaffController
   def edit
-    @evaluation = current_staff.evaluations.find_by(period: current_period)
+    @evaluation = current_staff.current_self_evaluation
     @evaluation.initialize_evaluation_answers
-    @evaluation.reload
   end
 
   def update
@@ -12,13 +11,7 @@ class Staff::EvaluationsController < StaffController
       return
     end
 
-    @evaluation = current_staff.evaluations.find_by(period: current_period)
-
-    if ! @evaluation.type == 'ManagerEvaluation'
-      flash[:danger] = 'Can not update this evaluation'
-      redirect_to staff_root_path
-      return
-    end
+    @evaluation = current_staff.current_self_evaluation
 
     @evaluation.attributes = evaluation_params
     # Assign status
@@ -34,18 +27,14 @@ class Staff::EvaluationsController < StaffController
       redirect_to staff_root_path
     else
       flash[:success] = 'Can not update, please check errors below'
-      render :index
+      render :edit
     end
   end
 
-  def peer_evaluation_list
-    @peer_evaluations = PeerEvaluation.where(reviewer: current_staff, period: current_period)
-  end
- 
   private
-  
+
   def evaluation_params
-    params.require(:evaluation)
+    params.require(:self_evaluation)
           .permit(rel_evaluation_answers_attributes: [:id, :point, :comment,:updated_at])
   end
 end
