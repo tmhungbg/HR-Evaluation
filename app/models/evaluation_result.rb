@@ -14,18 +14,33 @@ class EvaluationResult < ActiveRecord::Base
     self_evaluation       = SelfEvaluation.evaluated.find_by(staff: staff, period: period)
     supervisor_evaluation = SupervisorEvaluation.evaluated.find_by(staff: staff, period: period)
     peer_selection        = PeerSelection.find_by(staff: staff, period: period)
-    peer_evaluations      = peer_selection.peer_evaluations.evaluated
+    peer_evaluations      = peer_selection.try(:peer_evaluations).try(:evaluated)
     manager_evaluation    = ManagerEvaluation.evaluated.find_by(staff: staff, period: period)
-    return if self_evaluation.blank? || peer_evaluations.blank? || manager_evaluation.blank? || supervisor_evaluation.blank?
+    return if self_evaluation.blank? || manager_evaluation.blank?
+    final_score = 0
     self_score       = self_evaluation.score
-    supervisor_score = supervisor_evaluation.score
-    peer_score       = peer_evaluations.map(&:score).sum.to_f / peer_evaluations.length
     manager_score    = manager_evaluation.score
-    final_score = ( EVALUATION_WEIGHT[:self] * self_score             +
-                    EVALUATION_WEIGHT[:supervisor] * supervisor_score +
-                    EVALUATION_WEIGHT[:peer] * peer_score             +
-                    EVALUATION_WEIGHT[:manager] * manager_score
-                  ).round(1)
+    supervisor_score = supervisor_evaluation.score if supervisor_evaluation.present?
+    peer_score       = peer_evaluations.map(&:score).sum.to_f / peer_evaluations.length if peer_evaluations.present?
+    if peer_evaluations.present? && supervisor_evaluation.present?
+      final_score =   EVALUATION_WEIGHT_NORMAL[:self] * self_score             +
+                      EVALUATION_WEIGHT_NORMAL[:supervisor] * supervisor_score +
+                      EVALUATION_WEIGHT_NORMAL[:peer] * peer_score             +
+                      EVALUATION_WEIGHT_NORMAL[:manager] * manager_score
+
+    elsif supervisor_evaluation.present?
+      final_score =   EVALUATION_WEIGHT_WITHOUT_PEER[:self] * self_score             +
+                      EVALUATION_WEIGHT_WITHOUT_PEER[:supervisor] * supervisor_score +
+                      EVALUATION_WEIGHT_WITHOUT_PEER[:manager] * manager_score
+    elsif peer_evaluations.present?
+      final_score =   EVALUATION_WEIGHT_WITHOUT_SUPER[:self] * self_score             +
+                      EVALUATION_WEIGHT_WITHOUT_SUPER[:peer] * peer_score             +
+                      EVALUATION_WEIGHT_WITHOUT_SUPER[:manager] * manager_score
+    else
+      final_score =   EVALUATION_WEIGHT_WITHOUT_SUPER_AND_PEER[:self] * self_score             +
+                      EVALUATION_WEIGHT_WITHOUT_SUPER_AND_PEER[:manager] * manager_score
+    end
+
     self.update!(score: final_score.round(1))
   end
 

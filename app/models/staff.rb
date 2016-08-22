@@ -35,7 +35,7 @@ class Staff < ActiveRecord::Base
   validates :name, presence: true, length: {maximum: 30}
   validates :job, presence: true
   validates :display_password, length: {maximum: 10}
-  validates :supervisor, presence: true
+  validates :supervisor, presence: true, if: -> { Staff.supervisor.present? }
 
   after_create :generate_password!
 

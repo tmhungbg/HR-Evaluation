@@ -16,10 +16,10 @@ table.table.table-striped.table-hover.table-bordered
       td = @evaluation_result.period.show_time
       td = @evaluation_result.staff.name
       td = @evaluation_result.score
-      td = @self_evaluation.score
-      td = (@peer_evaluations.map(&:score).sum / @peer_evaluations.length).round(1)
-      td = @supervisor_evaluation.score
-      td = @manager_evaluation.score
+      td = @self_evaluation.score if @self_evaluation.present?
+      td = (@peer_evaluations.map(&:score).sum / @peer_evaluations.length).round(1) if @peer_evaluations.present?
+      td = @supervisor_evaluation.score if @supervisor_evaluation.present?
+      td = @manager_evaluation.score if @manager_evaluation.present?
 hr
 table class="table table-striped table-hover table-bordered"
   colgroup
@@ -50,20 +50,20 @@ table class="table table-striped table-hover table-bordered"
   tbody
     - @questions.each.with_index(1) do |qe, index|
       - self_point = self_evaluation_point(qe, @self_answers)
-      - peer_point = peer_evaluation_point(qe, @peer_answers)
+      - peer_point = peer_evaluation_point(qe, @peer_answers) if @peer_evaluations.present?
       - manager_point = manager_evaluation_point(qe, @manager_answers)
-      - supervisor_point = supervisor_evaluation_point(pe, @supervisor_answers)
+      - supervisor_point = supervisor_evaluation_point(qe, @supervisor_answers) if @supervisor_evaluation.present?
       tr
         td = index
         td
           span title="#{qe.name}"
             = qe.short_description
-        td = peer_detail_for_staff(qe, @peer_answers)
+        td = peer_detail_for_staff(qe, @peer_answers) if @peer_evaluations.present?
         td = self_point
-        td = peer_point
-        td = diff_point_display(peer_point, self_point)
-        td = supervisor_point
-        td = diff_point_display(supervisor_point, self_point)
+        td = peer_point if @peer_evaluations.present?
+        td = diff_point_display(peer_point, self_point) if @peer_evaluations.present?
+        td = supervisor_point if @supervisor_evaluation.present?
+        td = diff_point_display(supervisor_point, self_point) if @supervisor_evaluation.present?
         td = manager_point
         td = diff_point_display(manager_point, self_point)
         td

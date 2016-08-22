@@ -57,7 +57,7 @@ Staff.create!(staffs)
 p 'Create manager'
 Manager.create!(managers)
 periods = [
-  {start_time: "2015-08-03", end_time: "2015-08-10", phase: "phase_6", staff_ids: Staff.all.pluck(:id)},
+  {start_time: "2015-08-03", end_time: "2015-08-10", phase: "phase_6", staff_ids: Staff.all.limit(4).pluck(:id)},
   {start_time: "2016-08-03", end_time: "2016-10-10", staff_ids: Staff.all.pluck(:id)},
 ]
 
@@ -185,7 +185,7 @@ p 'Create data for old period'
 period = Period.phase_6.first
 staffs = period.staffs
 staff_ids = staffs.pluck(:id)
-staffs.each do |staff|
+staffs.each.with_index(1) do |staff, index|
   peer_selection = PeerSelection.find_by(staff: staff, period: period)
   peer_selection.update!(reviewer_ids: (staff_ids - [staff.id]).sample(3))
   peer_evaluations      = peer_selection.reload.peer_evaluations
@@ -216,9 +216,10 @@ staffs.each do |staff|
 
   # Update status
   self_evaluation.update!(status: :evaluated)
-  supervisor_evaluation.update!(status: :evaluated)
-  peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)}
+  supervisor_evaluation.update!(status: :evaluated) if [true, false].sample
+  peer_evaluations.each{|peer_e| peer_e.update!(status: :evaluated)} if [true, false].sample
   manager_evaluation.update!(status: :evaluated)
+  p "Done #{index}"
 end
 
 
