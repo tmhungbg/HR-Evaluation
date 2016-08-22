@@ -11,6 +11,7 @@ class Staff < ActiveRecord::Base
   has_many :self_evaluations
   has_many :manager_evaluations
 
+  has_one  :current_peer_selection, -> { where(period: Period.get_current_period) }, class_name: 'PeerSelection'
   has_many :current_evaluations, -> { where(period: Period.get_current_period) },
            class_name: 'Evaluation'
   has_one  :current_self_evaluation, -> { where(period: Period.get_current_period, type: 'SelfEvaluation') },
@@ -83,7 +84,6 @@ class Staff < ActiveRecord::Base
   end
 
   def get_current_reviwer_name
-    current_peer_selection = peer_selections.find_by(period: current_period)
     return if current_peer_selection.blank?
     current_peer_selection.reviewers.map(&:name).join(', ')
   end
@@ -97,7 +97,6 @@ class Staff < ActiveRecord::Base
   end
 
   def get_current_peer_evaluation_status
-    current_peer_selection = peer_selections.find_by(period: current_period)
     return '0 / 0' if current_peer_selection.blank?
     current_peer_evaluations = current_peer_selection.peer_evaluations
     "#{current_peer_evaluations.select(&:evaluated?).length} / #{current_peer_evaluations.length}"

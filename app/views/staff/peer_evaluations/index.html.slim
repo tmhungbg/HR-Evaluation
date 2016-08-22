@@ -1,13 +1,16 @@
 h2 Peer Evaluation
-table.table.table-striped.table-hover
-  thead
-    tr
-      th Name
-      th Status
-      th Evaluation
-  tbody
-    - @peer_evaluations.each do |pe|
+- if @peer_evaluations.blank?
+  p There is no evaluation request
+- else
+  table.table.table-striped.table-hover
+    thead
       tr
-        td = pe.peer_selection.staff.name
-        td = pe.status
-        td = link_to 'Review', edit_staff_peer_evaluation_path(pe), class: 'btn btn-primary'
+        th Name
+        th Status
+        th Evaluation
+    tbody
+      - @peer_evaluations.each do |pe|
+        tr
+          td = pe.peer_selection.staff.name
+          td = pe.status
+          td = link_to 'Review', edit_staff_peer_evaluation_path(pe), class: 'btn btn-primary'

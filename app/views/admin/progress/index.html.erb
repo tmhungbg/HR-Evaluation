@@ -4,6 +4,7 @@
     <tr>
       <th>Name</th>
       <th>Peer Selection</th>
+      <th>Comment</th>
       <th>Self Evaluation</th>
       <th>Peer Evaluation</th>
       <th>Manager Evaluation</th>
@@ -14,6 +15,7 @@
     <tr>
       <td><%= staff.name %></td>
       <td><%= staff.get_current_reviwer_name %></td>
+      <th><%= staff.current_peer_selection.try(:reason) %></th>
       <td><%= staff.get_current_self_evaluation_status %></td>
       <td><%= staff.get_current_peer_evaluation_status %></td>
       <td><%= staff.get_current_manager_evaluation_status %></td>
