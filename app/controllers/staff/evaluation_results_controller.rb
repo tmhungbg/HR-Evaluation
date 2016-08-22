@@ -9,13 +9,15 @@ class Staff::EvaluationResultsController < StaffController
     period = @evaluation_result.period
     staff  = @evaluation_result.staff
 
-    @self_evaluation    = SelfEvaluation.find_by(staff: staff, period: period)
-    @peer_evaluations   = PeerSelection.find_by(staff: staff, period: period).peer_evaluations
-    @manager_evaluation = ManagerEvaluation.find_by(staff: staff, period: period)
+    @self_evaluation       = SelfEvaluation.evaluated.find_by(staff: staff, period: period)
+    @supervisor_evaluation = SupervisorEvaluation.evaluated.find_by(staff: staff, period: period)
+    @peer_evaluations      = PeerSelection.find_by(staff: staff, period: period).peer_evaluations.evaluated
+    @manager_evaluation    = ManagerEvaluation.evaluated.find_by(staff: staff, period: period)
 
-    @self_answers      = @self_evaluation.rel_evaluation_answers
-    @peer_answers      = @peer_evaluations.map(&:rel_evaluation_answers).flatten
-    @manager_answers   = @manager_evaluation.rel_evaluation_answers
+    @self_answers       = @self_evaluation.rel_evaluation_answers
+    @supervisor_answers = @supervisor_evaluation.rel_evaluation_answers if @supervisor_evaluation.present?
+    @peer_answers       = @peer_evaluations.map(&:rel_evaluation_answers).flatten if @peer_evaluations.present?
+    @manager_answers    = @manager_evaluation.rel_evaluation_answers
 
     @questions = Question.preload(:answers).where(id: @self_answers.pluck(:question_id))
   end

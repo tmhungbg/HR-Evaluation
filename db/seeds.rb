@@ -42,7 +42,7 @@ question_groups = [
   {name: 'INTERPERSONAL SKILLS'},
   {name: 'TIME MANAGEMENT SKILLS'},
   {name: 'DEVELOPING OTHERS SKILLS'},
-  {name: 'MANAGING P ERFORMANCE SKILLS'}
+  {name: 'MANAGING PERFORMANCE SKILLS'}
 ]
 
 p 'Create question group'
