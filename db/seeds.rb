@@ -2,11 +2,11 @@ admins = [
   {email:"thu@mmj.vn", password:"123456"}
 ]
 staffs = [
-  {name: "Imamura Tomokazu",    email:"ima@mmj.vn",     job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
-  {name: "Nguyen Minh Luan",    email:"minhluan@mmj.vn",job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
-  {name: "Nguyen Ngoc Tuan",    email:"tuan@mmj.vn",    job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
-  {name: "Nguyen Hong Thu",     email:"thu@mmj.vn",     job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
-  {name: "Pham Thi Hong Hanh",  email:"hanh@mmj.vn",    job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
+  {name: "Imamura Tomokazu",    email:"ima@mmj.vn",     job:"manager",         is_supervisor: true, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Minh Luan",    email:"minhluan@mmj.vn",job:"manager",         is_supervisor: true, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Ngoc Tuan",    email:"tuan@mmj.vn",    job:"manager",         is_supervisor: true, is_senior: false, supervisor_id: 1},
+  {name: "Nguyen Hong Thu",     email:"thu@mmj.vn",     job:"manager",         is_supervisor: true, is_senior: false, supervisor_id: 1},
+  {name: "Pham Thi Hong Hanh",  email:"hanh@mmj.vn",    job:"manager",         is_supervisor: true, is_senior: false, supervisor_id: 1},
   {name: "Le Viet Ha",          email:"vietha@mmj.vn",  job:"manager",         is_supervisor: false, is_senior: false, supervisor_id: 1},
   {name: "Tomoya Endo",         email:"tendo@mmj.ne.jp",job:"tester",          is_supervisor: false, is_senior: false, supervisor_id: 1},
   {name: "Nguyen Van Hao",      email:"hao@mmj.vn",     job:"developer",       is_supervisor: false, is_senior: false, supervisor_id: 1},
