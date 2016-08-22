@@ -69,7 +69,7 @@ class Staff < ActiveRecord::Base
   end
 
   def self.for_peer_selection(current_staff)
-    current_period.staffs - [current_staff] - [current_staff.supervisor]
+    Period.get_current_period.staffs - [current_staff] - [current_staff.supervisor]
   end
 
   def current_period
