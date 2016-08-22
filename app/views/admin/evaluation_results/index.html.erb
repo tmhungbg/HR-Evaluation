@@ -1,4 +1,5 @@
 <h1 class="page-header">Final result</h1>
+<%= link_to 'Export CSV', admin_evaluation_results_path(period_id: params[:period_id], format: :csv), class: 'btn btn-success' %>
 
 <table class="table table-striped table-hover">
   <thead>

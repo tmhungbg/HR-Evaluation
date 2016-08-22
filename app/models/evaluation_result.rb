@@ -30,4 +30,16 @@ class EvaluationResult < ActiveRecord::Base
     ManagerEvaluation.create!(staff: staff, period: period)
     PeerSelection.create!(staff: staff, period: period)
   end
+
+  def self.to_csv(results)
+    require 'csv'
+    headers = %w(Name Job Score)
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+
+      results.each do |result|
+        csv << [result.staff.name, result.staff.job, result.score]
+      end
+    end
+  end
 end

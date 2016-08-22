@@ -3,6 +3,14 @@ class Admin::EvaluationResultsController < AdminController
     period = Period.find(params[:period_id])
     @evaluation_results = EvaluationResult.joins(:staff).preload(:staff).
                                           where(period: period).order('staffs.name ASC')
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data EvaluationResult.to_csv(@evaluation_results),
+                  filename: "evaluation_results-#{period.start_time}-#{period.end_time}.csv"
+      end
+    end
   end
 
   def show
