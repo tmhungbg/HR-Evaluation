@@ -180,6 +180,8 @@ questions = [
 p 'Create questions'
 Question.create!(questions)
 
+p 'Create evaluation weight'
+EvaluationWeight.create()
 
 p 'Create data for old period'
 period = Period.phase_6.first
@@ -221,7 +223,6 @@ staffs.each.with_index(1) do |staff, index|
   manager_evaluation.update!(status: :evaluated)
   p "Done #{index}"
 end
-
 
 # p 'Update data for current_period'
 # staffs = period.staffs

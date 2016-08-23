@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  normal_self: 1.5
+  normal_peer: 1.5
+  normal_manager: 1.5
+  normal_supervisor: 1.5
+
+two:
+  normal_self: 1.5
+  normal_peer: 1.5
+  normal_manager: 1.5
+  normal_supervisor: 1.5

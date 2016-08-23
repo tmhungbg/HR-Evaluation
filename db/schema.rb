@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822025912) do
+ActiveRecord::Schema.define(version: 20160823014139) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -62,6 +62,23 @@ ActiveRecord::Schema.define(version: 20160822025912) do
 
   add_index "evaluation_results", ["period_id"], name: "index_evaluation_results_on_period_id", using: :btree
   add_index "evaluation_results", ["staff_id"], name: "index_evaluation_results_on_staff_id", using: :btree
+
+  create_table "evaluation_weights", force: :cascade do |t|
+    t.float    "normal_self",                    limit: 24, default: 0.1,  null: false
+    t.float    "normal_peer",                    limit: 24, default: 0.15, null: false
+    t.float    "normal_manager",                 limit: 24, default: 0.45, null: false
+    t.float    "normal_supervisor",              limit: 24, default: 0.3,  null: false
+    t.float    "without_peer_self",              limit: 24, default: 0.1,  null: false
+    t.float    "without_peer_manager",           limit: 24, default: 0.6,  null: false
+    t.float    "without_peer_supervisor",        limit: 24, default: 0.3,  null: false
+    t.float    "without_super_self",             limit: 24, default: 0.1,  null: false
+    t.float    "without_super_manager",          limit: 24, default: 0.75, null: false
+    t.float    "without_super_peer",             limit: 24, default: 0.15, null: false
+    t.float    "without_peer_and_super_self",    limit: 24, default: 0.1,  null: false
+    t.float    "without_peer_and_super_manager", limit: 24, default: 0.9,  null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
 
   create_table "evaluations", force: :cascade do |t|
     t.integer  "peer_selection_id", limit: 4

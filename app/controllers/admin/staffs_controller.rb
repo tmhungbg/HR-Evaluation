@@ -5,11 +5,9 @@ class Admin::StaffsController < AdminController
   end
 
   def index
-    @staffs = Staff.where(active: true).order(email: :asc)
+    @staffs = Staff.preload(:supervisor).where(active: true).order(name: :asc)
     if params[:search].present?
       @staffs = @staffs.search_name(params[:search])
-    else
-      @staffs = Staff.where(active: true).order(email: :asc)
     end
   end
 

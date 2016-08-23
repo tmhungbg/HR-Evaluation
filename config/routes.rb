@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       end
     end
     resources :progress, only: [:index]
+    resources :evaluation_weights, only: [:edit, :update]
   end
 
   namespace :staff do

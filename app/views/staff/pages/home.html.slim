@@ -1,3 +1,4 @@
+h1 = current_period.phase_i18n
 .list-group.text-center.btn-actions
   - if current_staff.current_peer_selection.present?
     = link_to "Peer Selection" , staff_peer_selections_path, class: 'btn btn-lg btn-primary'
@@ -11,5 +12,5 @@
   - if SupervisorEvaluation.where(reviewer: current_staff, period: current_period).present?
     = link_to "Supervisor Evaluation" , staff_supervisor_evaluations_path, class: 'btn btn-lg btn-primary'
 
-  - if EvaluationResult.find_by(staff: current_staff, period: current_period).present?
+  - if EvaluationResult.find_by(staff: current_staff, period: current_period).present? && current_period.phase_5?
     = link_to "Result" , staff_evaluation_results_path, class: 'btn btn-lg btn-primary'

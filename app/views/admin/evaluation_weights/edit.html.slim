@@ -1,0 +1,24 @@
+h1.page-header Edit Evaluation Weight
+section
+  = simple_form_for [:admin, @evaluation_weight] do |f|
+    h3.page-header Normal
+    = f.input :normal_self
+    = f.input :normal_peer
+    = f.input :normal_manager
+    = f.input :normal_supervisor
+
+    h3.page-header Without peer evaluation
+    = f.input :without_peer_self
+    = f.input :without_peer_manager
+    = f.input :without_peer_supervisor
+
+    h3.page-header Without supervisor evaluation
+    = f.input :without_super_self
+    = f.input :without_super_manager
+    = f.input :without_super_peer
+
+    h3.page-header Without peer and supervisor evaluation
+    = f.input :without_peer_and_super_self
+    = f.input :without_peer_and_super_manager
+
+    = f.button :submit, class: "btn btn-primary"

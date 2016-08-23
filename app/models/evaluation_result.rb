@@ -22,23 +22,26 @@ class EvaluationResult < ActiveRecord::Base
     manager_score    = manager_evaluation.score
     supervisor_score = supervisor_evaluation.score if supervisor_evaluation.present?
     peer_score       = peer_evaluations.map(&:score).sum.to_f / peer_evaluations.length if peer_evaluations.present?
+
+    evaluation_weight = EvaluationWeight.first
+
     if peer_evaluations.present? && supervisor_evaluation.present?
-      final_score =   EVALUATION_WEIGHT_NORMAL[:self] * self_score             +
-                      EVALUATION_WEIGHT_NORMAL[:supervisor] * supervisor_score +
-                      EVALUATION_WEIGHT_NORMAL[:peer] * peer_score             +
-                      EVALUATION_WEIGHT_NORMAL[:manager] * manager_score
+      final_score =   evaluation_weight.normal_self       * self_score       +
+                      evaluation_weight.normal_supervisor * supervisor_score +
+                      evaluation_weight.normal_peer       * peer_score       +
+                      evaluation_weight.normal_manager    * manager_score
 
     elsif supervisor_evaluation.present?
-      final_score =   EVALUATION_WEIGHT_WITHOUT_PEER[:self] * self_score             +
-                      EVALUATION_WEIGHT_WITHOUT_PEER[:supervisor] * supervisor_score +
-                      EVALUATION_WEIGHT_WITHOUT_PEER[:manager] * manager_score
+      final_score =   evaluation_weight.without_peer_self       * self_score       +
+                      evaluation_weight.without_peer_supervisor * supervisor_score +
+                      evaluation_weight.without_peer_manager    * manager_score
     elsif peer_evaluations.present?
-      final_score =   EVALUATION_WEIGHT_WITHOUT_SUPER[:self] * self_score             +
-                      EVALUATION_WEIGHT_WITHOUT_SUPER[:peer] * peer_score             +
-                      EVALUATION_WEIGHT_WITHOUT_SUPER[:manager] * manager_score
+      final_score =   evaluation_weight.without_super_self    * self_score    +
+                      evaluation_weight.without_super_peer    * peer_score    +
+                      evaluation_weight.without_super_manager * manager_score
     else
-      final_score =   EVALUATION_WEIGHT_WITHOUT_SUPER_AND_PEER[:self] * self_score             +
-                      EVALUATION_WEIGHT_WITHOUT_SUPER_AND_PEER[:manager] * manager_score
+      final_score =   evaluation_weight.without_peer_and_super_self    * self_score +
+                      evaluation_weight.without_peer_and_super_manager * manager_score
     end
 
     self.update!(score: final_score.round(1))
