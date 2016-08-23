@@ -6,6 +6,13 @@ class Staff::EvaluationResultsController < StaffController
       return
     end
     @evaluation_result = EvaluationResult.find_by(staff: current_staff, period: current_period)
+
+    if @evaluation_result.blank? || @evaluation_result.score.blank?
+      flash[:danger] = 'You do not have result for this period'
+      redirect_to staff_root_path
+      return
+    end
+
     period = @evaluation_result.period
     staff  = @evaluation_result.staff
 

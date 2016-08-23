@@ -18,6 +18,12 @@ class Admin::EvaluationResultsController < AdminController
     period = @evaluation_result.period
     staff  = @evaluation_result.staff
 
+    if @evaluation_result.score.blank?
+      flash[:danger] = 'This staff does not finish evaluation in this period'
+      redirect_to :back
+      return
+    end
+
     @self_evaluation       = SelfEvaluation.evaluated.find_by(staff: staff, period: period)
     @supervisor_evaluation = SupervisorEvaluation.evaluated.find_by(staff: staff, period: period)
     @peer_evaluations      = PeerSelection.find_by(staff: staff, period: period).peer_evaluations.evaluated
